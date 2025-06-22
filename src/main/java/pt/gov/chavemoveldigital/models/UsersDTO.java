@@ -7,6 +7,7 @@ public class UsersDTO {
 
     String telephoneNumber;
     Integer pin;
+    Long nif;
     String firstName;
     String lastName;
     ElectoralCircle ElectoralCircle;
@@ -26,6 +27,14 @@ public class UsersDTO {
 
     public void setPin(Integer pin) {
         this.pin = pin;
+    }
+
+    public Long getNif() {
+        return nif;
+    }
+
+    public void setNif(Long nif) {
+        this.nif = nif;
     }
 
     public String getFirstName() {
