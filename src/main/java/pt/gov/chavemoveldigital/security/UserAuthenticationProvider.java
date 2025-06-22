@@ -1,4 +1,4 @@
-package pt.gov.chavemoveldigital;
+package pt.gov.chavemoveldigital.security;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,4 +1,4 @@
-package pt.gov.chavemoveldigital;
+package pt.gov.chavemoveldigital.security;
 
 import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
