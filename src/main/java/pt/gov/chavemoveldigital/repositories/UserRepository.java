@@ -8,4 +8,6 @@ import pt.gov.chavemoveldigital.entities.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByTelephoneNumber(String telephoneNumber);
 
+
+    User findUserByNif(Long nif);
 }
