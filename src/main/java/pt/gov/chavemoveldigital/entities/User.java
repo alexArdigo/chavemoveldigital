@@ -10,7 +10,7 @@ public class User {
 
         @Id
         Long nif;
-        String telephoneNumber;
+        Long telephoneNumber;
         Integer pin;
         String firstName;
         String lastName;
@@ -28,11 +28,11 @@ public class User {
         this.nif = nif;
     }
 
-    public String getTelephoneNumber() {
+    public Long getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
+    public void setTelephoneNumber(Long telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 
