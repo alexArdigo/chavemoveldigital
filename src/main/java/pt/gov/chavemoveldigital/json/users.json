@@ -1,0 +1,184 @@
+{
+  "users": [
+    {
+      "telephoneNumber": "+351910123456",
+      "pin": 1234,
+      "firstName": "João",
+      "lastName": "Silva",
+      "nif": "123456789",
+      "electoralCircle": "Lisboa",
+      "parish": "Santa Maria Maior"
+    },
+    {
+      "telephoneNumber": "+351920234567",
+      "pin": 5678,
+      "firstName": "Maria",
+      "lastName": "Santos",
+      "nif": "234567890",
+      "electoralCircle": "Porto",
+      "parish": "Cedofeita"
+    },
+    {
+      "telephoneNumber": "+351930345678",
+      "pin": 9012,
+      "firstName": "António",
+      "lastName": "Ferreira",
+      "nif": "345678901",
+      "electoralCircle": "Coimbra",
+      "parish": "Sé Nova"
+    },
+    {
+      "telephoneNumber": "+351940456789",
+      "pin": 3456,
+      "firstName": "Ana",
+      "lastName": "Rodrigues",
+      "nif": "456789012",
+      "electoralCircle": "Braga",
+      "parish": "São Vicente"
+    },
+    {
+      "telephoneNumber": "+351950567890",
+      "pin": 7890,
+      "firstName": "Carlos",
+      "lastName": "Pereira",
+      "nif": "567890123",
+      "electoralCircle": "Setúbal",
+      "parish": "São Sebastião"
+    },
+    {
+      "telephoneNumber": "+351960678901",
+      "pin": 2345,
+      "firstName": "Sofia",
+      "lastName": "Costa",
+      "nif": "678901234",
+      "electoralCircle": "Faro",
+      "parish": "Sé"
+    },
+    {
+      "telephoneNumber": "+351970789012",
+      "pin": 6789,
+      "firstName": "Miguel",
+      "lastName": "Almeida",
+      "nif": "789012345",
+      "electoralCircle": "Aveiro",
+      "parish": "Glória"
+    },
+    {
+      "telephoneNumber": "+351910890123",
+      "pin": 2123,
+      "firstName": "Catarina",
+      "lastName": "Oliveira",
+      "nif": "890123456",
+      "electoralCircle": "Leiria",
+      "parish": "Marrazes"
+    },
+    {
+      "telephoneNumber": "+351920901234",
+      "pin": 4567,
+      "firstName": "Pedro",
+      "lastName": "Martins",
+      "nif": "901234567",
+      "electoralCircle": "Santarém",
+      "parish": "Marvila"
+    },
+    {
+      "telephoneNumber": "+351931012345",
+      "pin": 8901,
+      "firstName": "Inês",
+      "lastName": "Gomes",
+      "nif": "012345678",
+      "electoralCircle": "Viseu",
+      "parish": "Repeses"
+    },
+    {
+      "telephoneNumber": "+351941123456",
+      "pin": 2468,
+      "firstName": "Rui",
+      "lastName": "Carvalho",
+      "nif": "135792468",
+      "electoralCircle": "Castelo Branco",
+      "parish": "Castelo Branco"
+    },
+    {
+      "telephoneNumber": "+351951234567",
+      "pin": 1357,
+      "firstName": "Teresa",
+      "lastName": "Ribeiro",
+      "nif": "246813579",
+      "electoralCircle": "Guarda",
+      "parish": "Sé"
+    },
+    {
+      "telephoneNumber": "+351961345678",
+      "pin": 9753,
+      "firstName": "Nuno",
+      "lastName": "Teixeira",
+      "nif": "357924680",
+      "electoralCircle": "Viana do Castelo",
+      "parish": "Santa Maria Maior"
+    },
+    {
+      "telephoneNumber": "+351971456789",
+      "pin": 8642,
+      "firstName": "Cristina",
+      "lastName": "Dias",
+      "nif": "468135791",
+      "electoralCircle": "Vila Real",
+      "parish": "São Pedro"
+    },
+    {
+      "telephoneNumber": "+351910567890",
+      "pin": 7531,
+      "firstName": "Ricardo",
+      "lastName": "Sousa",
+      "nif": "579246802",
+      "electoralCircle": "Bragança",
+      "parish": "Sé"
+    },
+    {
+      "telephoneNumber": "+351920678901",
+      "pin": 4820,
+      "firstName": "Luísa",
+      "lastName": "Fernandes",
+      "nif": "680357913",
+      "electoralCircle": "Évora",
+      "parish": "Sé e São Pedro"
+    },
+    {
+      "telephoneNumber": "+351930789012",
+      "pin": 3691,
+      "firstName": "Tiago",
+      "lastName": "Pinto",
+      "nif": "791468024",
+      "electoralCircle": "Beja",
+      "parish": "Santiago Maior"
+    },
+    {
+      "telephoneNumber": "+351940890123",
+      "pin": 2580,
+      "firstName": "Patrícia",
+      "lastName": "Lopes",
+      "nif": "802579135",
+      "electoralCircle": "Portalegre",
+      "parish": "Sé"
+    },
+    {
+      "telephoneNumber": "+351950901234",
+      "pin": 1479,
+      "firstName": "Bruno",
+      "lastName": "Mendes",
+      "nif": "913680246",
+      "electoralCircle": "Funchal",
+      "parish": "Sé"
+    },
+    {
+      "telephoneNumber": "+351961012345",
+      "pin": 1369,
+      "firstName": "Sandra",
+      "lastName": "Vieira",
+      "nif": "024791357",
+      "electoralCircle": "Angra do Heroísmo",
+      "parish": "Sé"
+    }
+  ]
+}
