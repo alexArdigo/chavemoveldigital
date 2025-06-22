@@ -11,6 +11,7 @@ public class User {
         @Id
         Long nif;
         Long telephoneNumber;
+        Integer pin;
         String firstName;
         String lastName;
         ElectoralCircle ElectoralCircle;
@@ -33,6 +34,14 @@ public class User {
 
     public void setTelephoneNumber(Long telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public Integer getPin() {
+        return pin;
+    }
+
+    public void setPin(Integer pin) {
+        this.pin = pin;
     }
 
     public String getFirstName() {
