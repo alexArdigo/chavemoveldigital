@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import pt.gov.chavemoveldigital.enums.ElectoralCircle;
 import pt.gov.chavemoveldigital.enums.Parish;
+import pt.gov.chavemoveldigital.models.UsersDTO;
 
 @Entity
 public class User {
@@ -18,6 +19,15 @@ public class User {
         Parish parish;
 
     public User() {
+    }
+
+    public User(UsersDTO usersDTO) {
+        this.telephoneNumber = usersDTO.getTelephoneNumber();
+        this.pin = usersDTO.getPin();
+        this.firstName = usersDTO.getFirstName();
+        this.lastName = usersDTO.getLastName();
+        ElectoralCircle = usersDTO.getElectoralCircle();
+        this.parish = usersDTO.getParish();
     }
 
     public Long getNif() {
