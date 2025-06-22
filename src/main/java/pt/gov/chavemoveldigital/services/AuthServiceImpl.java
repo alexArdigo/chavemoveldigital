@@ -1,0 +1,59 @@
+package pt.gov.chavemoveldigital.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import pt.gov.chavemoveldigital.entities.TempCode;
+import pt.gov.chavemoveldigital.entities.User;
+import pt.gov.chavemoveldigital.models.UserDTO;
+import pt.gov.chavemoveldigital.repositories.TempCodeRepository;
+import pt.gov.chavemoveldigital.repositories.UserRepository;
+
+@Service
+public class AuthServiceImpl implements AuthService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private TempCodeRepository tempCodeRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public Object authenticate(UserDTO userDTO) {
+        User existingUser = userRepository.findUserByTelephoneNumber(userDTO.getTelephoneNumber());
+        if (existingUser == null || existingUser.getNif() == null)
+            throw new NullPointerException("Incorrect data");
+
+        String pinEncoded = passwordEncoder.encode(userDTO.getPin().toString());
+        if (!passwordEncoder.matches(existingUser.getPin().toString(), pinEncoded))
+            throw new NullPointerException("Incorrect data");
+
+        TempCode code = new TempCode(existingUser);
+        setTimeout(code);
+
+        return code;
+    }
+
+    @Override
+    public Object insertCode(Long code) {
+        return null;
+    }
+
+    @Override
+    public void setTimeout(TempCode code) {
+        int delay = 3000;
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+                tempCodeRepository.deleteTempCodeById(code.getId());
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
+    }
+}
