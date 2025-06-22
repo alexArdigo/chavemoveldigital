@@ -10,7 +10,7 @@ public class User {
 
         @Id
         Long nif;
-        Long telephoneNumber;
+        String telephoneNumber;
         String firstName;
         String lastName;
         ElectoralCircle ElectoralCircle;
