@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pt.gov.chavemoveldigital.models.UserDTO;
+import pt.gov.chavemoveldigital.services.AuthService;
 
 @RestController
 public class AuthController {
@@ -13,8 +15,8 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/authentication")
-    public ResponseEntity<?> authenticate(String telephoneNumber) {
-        return ResponseEntity.ok().body(authService.authenticate(telephoneNumber));
+    public ResponseEntity<?> authenticate(UserDTO userDTO) {
+        return ResponseEntity.ok().body(authService.authenticate(userDTO));
     }
 
     @PostMapping("/authentication/code")
