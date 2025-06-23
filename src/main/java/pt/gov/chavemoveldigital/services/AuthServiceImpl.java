@@ -3,11 +3,14 @@ package pt.gov.chavemoveldigital.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.gov.chavemoveldigital.entities.TempCode;
 import pt.gov.chavemoveldigital.entities.User;
 import pt.gov.chavemoveldigital.models.UserDTO;
 import pt.gov.chavemoveldigital.repositories.TempCodeRepository;
 import pt.gov.chavemoveldigital.repositories.UserRepository;
+
+import java.util.Random;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -21,6 +24,10 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private TempCodeDeletionService tempCodeDeletionService;
+
+
     @Override
     public Object authenticate(UserDTO userDTO) {
         User existingUser = userRepository.findUserByTelephoneNumber(userDTO.getTelephoneNumber());
@@ -31,7 +38,13 @@ public class AuthServiceImpl implements AuthService {
         if (!passwordEncoder.matches(existingUser.getPin().toString(), pinEncoded))
             throw new NullPointerException("Incorrect data");
 
-        TempCode code = new TempCode(existingUser);
+        TempCode previousCode = tempCodeRepository.findByUser(existingUser);
+        if (previousCode != null) {
+            tempCodeRepository.delete(previousCode);
+        }
+
+        TempCode code = new TempCode(existingUser, generateCode());
+        tempCodeRepository.save(code);
         setTimeout(code);
 
         return code;
@@ -44,16 +57,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void setTimeout(TempCode code) {
-        int delay = 3000;
+        int delay = 10000;
+        tempCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay);
+    }
 
-        new Thread(() -> {
-            try {
-                Thread.sleep(delay);
-                tempCodeRepository.deleteTempCodeById(code.getId());
-            }
-            catch (Exception e){
-                System.err.println(e);
-            }
-        }).start();
+    public Integer generateCode() {
+        Random random = new Random();
+        int min = 100000;
+        int max = 999999;
+        return random.nextInt(max - min) + min;
     }
 }

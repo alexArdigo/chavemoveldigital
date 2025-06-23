@@ -1,9 +1,7 @@
 package pt.gov.chavemoveldigital.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import org.aspectj.apache.bcel.classfile.Code;
 
 import java.util.Random;
 
@@ -14,21 +12,17 @@ public class TempCode {
     Long id;
     Integer code;
     @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     User user;
 
     public TempCode() {
     }
 
-    public TempCode(User user) {
+    public TempCode(User user, Integer code) {
         this.user = user;
+        this.code = code;
     }
 
-    public Integer generateCode() {
-        Random random = new Random();
-        int min = 100000;
-        int max = 999999;
-        return random.nextInt(max - min) + min;
-    }
 
     public Long getId() {
         return id;
@@ -39,7 +33,7 @@ public class TempCode {
     }
 
     public Integer getCode() {
-        return generateCode();
+        return code;
     }
 
     public void setCode(Integer code) {
