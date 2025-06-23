@@ -10,7 +10,7 @@ public class UsersDTO {
     Long nif;
     String firstName;
     String lastName;
-    ElectoralCircle ElectoralCircle;
+    ElectoralCircle electoralCircle;
     Municipality municipality;
 
     public String getTelephoneNumber() {
@@ -54,18 +54,18 @@ public class UsersDTO {
     }
 
     public ElectoralCircle getElectoralCircle() {
-        return ElectoralCircle;
+        return electoralCircle;
     }
 
     public void setElectoralCircle(ElectoralCircle electoralCircle) {
-        ElectoralCircle = electoralCircle;
+        this.electoralCircle = electoralCircle;
     }
 
-    public Municipality getParish() {
+    public Municipality getMunicipality() {
         return municipality;
     }
 
-    public void setParish(Municipality municipality) {
+    public void setMunicipality(Municipality municipality) {
         this.municipality = municipality;
     }
 }

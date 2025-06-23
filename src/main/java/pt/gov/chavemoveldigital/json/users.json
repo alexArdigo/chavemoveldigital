@@ -1,184 +1,182 @@
-{
-  "users": [
-    {
-      "telephoneNumber": "+351910123456",
-      "pin": 1234,
-      "firstName": "João",
-      "lastName": "Silva",
-      "nif": "123456789",
-      "electoralCircle": "LISBOA",
-      "municipality": "CASCAIS"
-    },
-    {
-      "telephoneNumber": "+351920234567",
-      "pin": 5678,
-      "firstName": "Maria",
-      "lastName": "Santos",
-      "nif": "234567890",
-      "electoralCircle": "PORTO",
-      "municipality": "MATOSINHOS"
-    },
-    {
-      "telephoneNumber": "+351930345678",
-      "pin": 9012,
-      "firstName": "António",
-      "lastName": "Ferreira",
-      "nif": "345678901",
-      "electoralCircle": "COIMBRA",
-      "municipality": "FIGUEIRA DA FOZ"
-    },
-    {
-      "telephoneNumber": "+351940456789",
-      "pin": 3456,
-      "firstName": "Ana",
-      "lastName": "Rodrigues",
-      "nif": "456789012",
-      "electoralCircle": "BRAGA",
-      "municipality": "GUIMARÃES"
-    },
-    {
-      "telephoneNumber": "+351950567890",
-      "pin": 7890,
-      "firstName": "Carlos",
-      "lastName": "Pereira",
-      "nif": "567890123",
-      "electoralCircle": "SETÚBAL",
-      "municipality": "ALMADA"
-    },
-    {
-      "telephoneNumber": "+351960678901",
-      "pin": 2345,
-      "firstName": "Sofia",
-      "lastName": "Costa",
-      "nif": "678901234",
-      "electoralCircle": "FARO",
-      "municipality": "PORTIMÃO"
-    },
-    {
-      "telephoneNumber": "+351970789012",
-      "pin": 6789,
-      "firstName": "Miguel",
-      "lastName": "Almeida",
-      "nif": "789012345",
-      "electoralCircle": "AVEIRO",
-      "municipality": "ÁGUEDA"
-    },
-    {
-      "telephoneNumber": "+351910890123",
-      "pin": 2123,
-      "firstName": "Catarina",
-      "lastName": "Oliveira",
-      "nif": "890123456",
-      "electoralCircle": "LEIRIA",
-      "municipality": "MARINHA GRANDE"
-    },
-    {
-      "telephoneNumber": "+351920901234",
-      "pin": 4567,
-      "firstName": "Pedro",
-      "lastName": "Martins",
-      "nif": "901234567",
-      "electoralCircle": "SANTARÉM",
-      "municipality": "TORRES NOVAS"
-    },
-    {
-      "telephoneNumber": "+351931012345",
-      "pin": 8901,
-      "firstName": "Inês",
-      "lastName": "Gomes",
-      "nif": "012345678",
-      "electoralCircle": "VISEU",
-      "municipality": "LAMEGO"
-    },
-    {
-      "telephoneNumber": "+351941123456",
-      "pin": 2468,
-      "firstName": "Rui",
-      "lastName": "Carvalho",
-      "nif": "135792468",
-      "electoralCircle": "CASTELO BRANCO",
-      "municipality": "COVILHÃ"
-    },
-    {
-      "telephoneNumber": "+351951234567",
-      "pin": 1357,
-      "firstName": "Teresa",
-      "lastName": "Ribeiro",
-      "nif": "246813579",
-      "electoralCircle": "GUARDA",
-      "municipality": "SEIA"
-    },
-    {
-      "telephoneNumber": "+351961345678",
-      "pin": 9753,
-      "firstName": "Nuno",
-      "lastName": "Teixeira",
-      "nif": "357924680",
-      "electoralCircle": "VIANA DO CASTELO",
-      "municipality": "PONTE DE LIMA"
-    },
-    {
-      "telephoneNumber": "+351971456789",
-      "pin": 8642,
-      "firstName": "Cristina",
-      "lastName": "Dias",
-      "nif": "468135791",
-      "electoralCircle": "VILA REAL",
-      "municipality": "CHAVES"
-    },
-    {
-      "telephoneNumber": "+351910567890",
-      "pin": 7531,
-      "firstName": "Ricardo",
-      "lastName": "Sousa",
-      "nif": "579246802",
-      "electoralCircle": "BRAGANÇA",
-      "municipality": "MIRANDELA"
-    },
-    {
-      "telephoneNumber": "+351920678901",
-      "pin": 4820,
-      "firstName": "Luísa",
-      "lastName": "Fernandes",
-      "nif": "680357913",
-      "electoralCircle": "ÉVORA",
-      "municipality": "ESTREMOZ"
-    },
-    {
-      "telephoneNumber": "+351930789012",
-      "pin": 3691,
-      "firstName": "Tiago",
-      "lastName": "Pinto",
-      "nif": "791468024",
-      "electoralCircle": "BEJA",
-      "municipality": "SERPA"
-    },
-    {
-      "telephoneNumber": "+351940890123",
-      "pin": 2580,
-      "firstName": "Patrícia",
-      "lastName": "Lopes",
-      "nif": "802579135",
-      "electoralCircle": "PORTALEGRE",
-      "municipality": "ELVAS"
-    },
-    {
-      "telephoneNumber": "+351950901234",
-      "pin": 1479,
-      "firstName": "Bruno",
-      "lastName": "Mendes",
-      "nif": "913680246",
-      "electoralCircle": "FUNCHAL",
-      "municipality": "CÂMARA DE LOBOS"
-    },
-    {
-      "telephoneNumber": "+351961012345",
-      "pin": 1369,
-      "firstName": "Sandra",
-      "lastName": "Vieira",
-      "nif": "024791357",
-      "electoralCircle": "ANGRA DO HEROÍSMO",
-      "municipality": "PRAIA DA VITÓRIA"
-    }
-  ]
-}
+[
+  {
+    "telephoneNumber": "+351910123456",
+    "pin": 1234,
+    "nif": 323456789,
+    "firstName": "João",
+    "lastName": "Silva",
+    "electoralCircle": "LISBOA",
+    "municipality": "CASCAIS"
+  },
+  {
+    "telephoneNumber": "+351920234567",
+    "pin": 5678,
+    "nif": 334567890,
+    "firstName": "Maria",
+    "lastName": "Santos",
+    "electoralCircle": "PORTO",
+    "municipality": "MATOSINHOS"
+  },
+  {
+    "telephoneNumber": "+351930345678",
+    "pin": 9012,
+    "nif": 345678901,
+    "firstName": "António",
+    "lastName": "Ferreira",
+    "electoralCircle": "COIMBRA",
+    "municipality": "FIGUEIRA_DA_FOZ"
+  },
+  {
+    "telephoneNumber": "+351940456789",
+    "pin": 3456,
+    "nif": 356789012,
+    "firstName": "Ana",
+    "lastName": "Rodrigues",
+    "electoralCircle": "BRAGA",
+    "municipality": "GUIMARAES"
+  },
+  {
+    "telephoneNumber": "+351950567890",
+    "pin": 7890,
+    "nif": 367890123,
+    "firstName": "Carlos",
+    "lastName": "Pereira",
+    "electoralCircle": "SETUBAL",
+    "municipality": "ALMADA"
+  },
+  {
+    "telephoneNumber": "+351960678901",
+    "pin": 2345,
+    "nif": 378901234,
+    "firstName": "Sofia",
+    "lastName": "Costa",
+    "electoralCircle": "FARO",
+    "municipality": "PORTIMAO"
+  },
+  {
+    "telephoneNumber": "+351970789012",
+    "pin": 6789,
+    "nif": 389012345,
+    "firstName": "Miguel",
+    "lastName": "Almeida",
+    "electoralCircle": "AVEIRO",
+    "municipality": "AGUEDA"
+  },
+  {
+    "telephoneNumber": "+351910890123",
+    "pin": 2123,
+    "nif": 390123456,
+    "firstName": "Catarina",
+    "lastName": "Oliveira",
+    "electoralCircle": "LEIRIA",
+    "municipality": "MARINHA_GRANDE"
+  },
+  {
+    "telephoneNumber": "+351920901234",
+    "pin": 4567,
+    "nif": 301234567,
+    "firstName": "Pedro",
+    "lastName": "Martins",
+    "electoralCircle": "SANTAREM",
+    "municipality": "TORRES_NOVAS"
+  },
+  {
+    "telephoneNumber": "+351931012345",
+    "pin": 8901,
+    "nif": 312345678,
+    "firstName": "Inês",
+    "lastName": "Gomes",
+    "electoralCircle": "VISEU",
+    "municipality": "LAMEGO"
+  },
+  {
+    "telephoneNumber": "+351941123456",
+    "pin": 2468,
+    "nif": 335792468,
+    "firstName": "Rui",
+    "lastName": "Carvalho",
+    "electoralCircle": "CASTELO_BRANCO",
+    "municipality": "COVILHA"
+  },
+  {
+    "telephoneNumber": "+351951234567",
+    "pin": 1357,
+    "nif": 346813579,
+    "firstName": "Teresa",
+    "lastName": "Ribeiro",
+    "electoralCircle": "GUARDA",
+    "municipality": "SEIA"
+  },
+  {
+    "telephoneNumber": "+351961345678",
+    "pin": 9753,
+    "nif": 357924680,
+    "firstName": "Nuno",
+    "lastName": "Teixeira",
+    "electoralCircle": "VIANA_DO_CASTELO",
+    "municipality": "PONTE_DE_LIMA"
+  },
+  {
+    "telephoneNumber": "+351971456789",
+    "pin": 8642,
+    "nif": 368135791,
+    "firstName": "Cristina",
+    "lastName": "Dias",
+    "electoralCircle": "VILA_REAL",
+    "municipality": "CHAVES"
+  },
+  {
+    "telephoneNumber": "+351910567890",
+    "pin": 7531,
+    "nif": 379246802,
+    "firstName": "Ricardo",
+    "lastName": "Sousa",
+    "electoralCircle": "BRAGANCA",
+    "municipality": "MIRANDELA"
+  },
+  {
+    "telephoneNumber": "+351920678901",
+    "pin": 4820,
+    "nif": 380357913,
+    "firstName": "Luísa",
+    "lastName": "Fernandes",
+    "electoralCircle": "EVORA",
+    "municipality": "ESTREMOZ"
+  },
+  {
+    "telephoneNumber": "+351930789012",
+    "pin": 3691,
+    "nif": 391468024,
+    "firstName": "Tiago",
+    "lastName": "Pinto",
+    "electoralCircle": "BEJA",
+    "municipality": "SERPA"
+  },
+  {
+    "telephoneNumber": "+351940890123",
+    "pin": 2580,
+    "nif": 302579135,
+    "firstName": "Patrícia",
+    "lastName": "Lopes",
+    "electoralCircle": "PORTALEGRE",
+    "municipality": "ELVAS"
+  },
+  {
+    "telephoneNumber": "+351950901234",
+    "pin": 1479,
+    "nif": 313680246,
+    "firstName": "Bruno",
+    "lastName": "Mendes",
+    "electoralCircle": "MADEIRA",
+    "municipality": "CAMARA_DE_LOBOS"
+  },
+  {
+    "telephoneNumber": "+351961012345",
+    "pin": 1369,
+    "nif": 324791357,
+    "firstName": "Sandra",
+    "lastName": "Vieira",
+    "electoralCircle": "ACORES",
+    "municipality": "PRAIA_DA_VITORIA"
+  }
+]

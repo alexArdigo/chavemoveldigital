@@ -1,6 +1,8 @@
 package pt.gov.chavemoveldigital.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import pt.gov.chavemoveldigital.enums.ElectoralCircle;
 import pt.gov.chavemoveldigital.enums.Municipality;
@@ -9,14 +11,17 @@ import pt.gov.chavemoveldigital.models.UsersDTO;
 @Entity
 public class User {
 
-        @Id
-        Long nif;
-        String telephoneNumber;
-        Integer pin;
-        String firstName;
-        String lastName;
-        ElectoralCircle ElectoralCircle;
-        Municipality municipality;
+    @Id
+    @GeneratedValue
+    Long id;
+    @JsonIgnore
+    Long nif;
+    String telephoneNumber;
+    Integer pin;
+    String firstName;
+    String lastName;
+    ElectoralCircle ElectoralCircle;
+    Municipality municipality;
 
     public User() {
     }
@@ -24,10 +29,19 @@ public class User {
     public User(UsersDTO usersDTO) {
         this.telephoneNumber = usersDTO.getTelephoneNumber();
         this.pin = usersDTO.getPin();
+        this.nif = usersDTO.getNif();
         this.firstName = usersDTO.getFirstName();
         this.lastName = usersDTO.getLastName();
         ElectoralCircle = usersDTO.getElectoralCircle();
-        this.municipality = usersDTO.getParish();
+        this.municipality = usersDTO.getMunicipality();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getNif() {
@@ -78,11 +92,11 @@ public class User {
         ElectoralCircle = electoralCircle;
     }
 
-    public Municipality getParish() {
+    public Municipality getMunicipality() {
         return municipality;
     }
 
-    public void setParish(Municipality municipality) {
+    public void setMunicipality(Municipality municipality) {
         this.municipality = municipality;
     }
 }
