@@ -3,7 +3,7 @@ package pt.gov.chavemoveldigital.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import pt.gov.chavemoveldigital.enums.ElectoralCircle;
-import pt.gov.chavemoveldigital.enums.Parish;
+import pt.gov.chavemoveldigital.enums.Municipality;
 import pt.gov.chavemoveldigital.models.UsersDTO;
 
 @Entity
@@ -16,7 +16,7 @@ public class User {
         String firstName;
         String lastName;
         ElectoralCircle ElectoralCircle;
-        Parish parish;
+        Municipality municipality;
 
     public User() {
     }
@@ -27,7 +27,7 @@ public class User {
         this.firstName = usersDTO.getFirstName();
         this.lastName = usersDTO.getLastName();
         ElectoralCircle = usersDTO.getElectoralCircle();
-        this.parish = usersDTO.getParish();
+        this.municipality = usersDTO.getParish();
     }
 
     public Long getNif() {
@@ -78,11 +78,11 @@ public class User {
         ElectoralCircle = electoralCircle;
     }
 
-    public Parish getParish() {
-        return parish;
+    public Municipality getParish() {
+        return municipality;
     }
 
-    public void setParish(Parish parish) {
-        this.parish = parish;
+    public void setParish(Municipality municipality) {
+        this.municipality = municipality;
     }
 }

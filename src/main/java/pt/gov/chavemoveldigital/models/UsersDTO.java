@@ -1,7 +1,7 @@
 package pt.gov.chavemoveldigital.models;
 
 import pt.gov.chavemoveldigital.enums.ElectoralCircle;
-import pt.gov.chavemoveldigital.enums.Parish;
+import pt.gov.chavemoveldigital.enums.Municipality;
 
 public class UsersDTO {
 
@@ -11,7 +11,7 @@ public class UsersDTO {
     String firstName;
     String lastName;
     ElectoralCircle ElectoralCircle;
-    Parish parish;
+    Municipality municipality;
 
     public String getTelephoneNumber() {
         return telephoneNumber;
@@ -61,11 +61,11 @@ public class UsersDTO {
         ElectoralCircle = electoralCircle;
     }
 
-    public Parish getParish() {
-        return parish;
+    public Municipality getParish() {
+        return municipality;
     }
 
-    public void setParish(Parish parish) {
-        this.parish = parish;
+    public void setParish(Municipality municipality) {
+        this.municipality = municipality;
     }
 }
