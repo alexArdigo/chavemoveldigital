@@ -1,5 +1,8 @@
 package pt.gov.chavemoveldigital.services;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.util.Random;
 @Service
 public class AuthServiceImpl implements AuthService {
 
+    private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
     @Autowired
     private UserRepository userRepository;
 
@@ -33,8 +37,7 @@ public class AuthServiceImpl implements AuthService {
         if (existingUser == null || existingUser.getNif() == null)
             throw new NullPointerException("Incorrect data");
 
-        String pinEncoded = passwordEncoder.encode(userDTO.getPin().toString());
-        if (!passwordEncoder.matches(existingUser.getPin().toString(), pinEncoded))
+        if (!passwordEncoder.matches(userDTO.getPin().toString(), existingUser.getPin()))
             throw new NullPointerException("Incorrect data");
 
         TempCode previousCode = tempCodeRepository.findByUser(existingUser);
@@ -51,13 +54,19 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public Object insertCode(Long code) {
-        return null;
+    public User insertCode(Integer code) {
+        TempCode existingTempCode = tempCodeRepository.findTempCodeByCode(code);
+        if (existingTempCode == null || existingTempCode.getId() == null) {
+            throw new NullPointerException("Incorrect code");
+        }
+        User user = existingTempCode.getUser();
+        tempCodeRepository.delete(existingTempCode);
+        return user;
     }
 
     @Override
     public void setTimeout(TempCode code) {
-        int delay = 10000;
+        int delay = 60000;
         tempCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay);
     }
 

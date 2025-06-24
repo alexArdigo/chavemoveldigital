@@ -10,4 +10,6 @@ public interface TempCodeRepository extends JpaRepository<TempCode, Long> {
     void deleteTempCodeById(Long id);
 
     TempCode findByUser(User existingUser);
+
+    TempCode findTempCodeByCode(Integer code);
 }

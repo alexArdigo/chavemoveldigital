@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pt.gov.chavemoveldigital.entities.User;
 import pt.gov.chavemoveldigital.models.UsersDTO;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void init() {
@@ -38,7 +42,8 @@ public class UserServiceImpl implements UserService {
             for (UsersDTO userDTO : usersDTO) {
                 User existingUser = userRepository.findUserByNif(userDTO.getNif());
                 if (existingUser == null || existingUser.getNif() == null) {
-                    User user = new User(userDTO);
+                    String pin = passwordEncoder.encode(userDTO.getPin().toString());
+                    User user = new User(userDTO, pin);
                     users.add(user);
                 }
             }

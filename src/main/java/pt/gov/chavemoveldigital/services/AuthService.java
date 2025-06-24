@@ -7,7 +7,7 @@ import pt.gov.chavemoveldigital.models.UserDTO;
 public interface AuthService {
     TempCode authenticate(UserDTO userDTO);
 
-    Object insertCode(Long code);
+    Object insertCode(Integer code);
 
     void setTimeout(TempCode code);
 }

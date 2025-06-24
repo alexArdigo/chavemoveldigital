@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import org.apache.commons.codec.digest.DigestUtils;
 import pt.gov.chavemoveldigital.enums.ElectoralCircle;
 import pt.gov.chavemoveldigital.enums.Municipality;
 import pt.gov.chavemoveldigital.models.UsersDTO;
@@ -14,10 +15,10 @@ public class User {
     @Id
     @GeneratedValue
     Long id;
-    @JsonIgnore
     Long nif;
     String telephoneNumber;
-    Integer pin;
+    @JsonIgnore
+    String pin;
     String firstName;
     String lastName;
     ElectoralCircle ElectoralCircle;
@@ -26,9 +27,9 @@ public class User {
     public User() {
     }
 
-    public User(UsersDTO usersDTO) {
+    public User(UsersDTO usersDTO, String pin) {
         this.telephoneNumber = usersDTO.getTelephoneNumber();
-        this.pin = usersDTO.getPin();
+        this.pin = pin;
         this.nif = usersDTO.getNif();
         this.firstName = usersDTO.getFirstName();
         this.lastName = usersDTO.getLastName();
@@ -60,11 +61,11 @@ public class User {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public Integer getPin() {
+    public String getPin() {
         return pin;
     }
 
-    public void setPin(Integer pin) {
+    public void setPin(String pin) {
         this.pin = pin;
     }
 

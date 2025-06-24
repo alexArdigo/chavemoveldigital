@@ -21,7 +21,7 @@ public class SecurityWebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:8080"));
+        configuration.setAllowedOrigins(List.of("http://localhost:8081"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -55,11 +55,11 @@ public class SecurityWebConfig {
 
 /*            auth.requestMatchers( ... ).authenticated();*/
 
-            auth.requestMatchers("**").permitAll();
+            auth.requestMatchers("/authentication", "**").permitAll();
 
             //auth.requestMatchers("**").denyAll();
         });
-        httpSecurity.formLogin(loginConfig -> {
+       /* httpSecurity.formLogin(loginConfig -> {
             loginConfig.loginPage("/login");
             loginConfig.loginProcessingUrl("/login");
             loginConfig.successHandler((request, response, authentication) -> {
@@ -68,7 +68,7 @@ public class SecurityWebConfig {
             loginConfig.failureHandler((request, response, authentication) -> {
                 response.setStatus(401);
             });
-        });
+        });*/
 
         /*httpSecurity.logout(
                 logout -> {
