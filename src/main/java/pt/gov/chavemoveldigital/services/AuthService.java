@@ -10,4 +10,6 @@ public interface AuthService {
     Object insertCode(Integer code);
 
     void setTimeout(TempCode code);
+
+    Integer generateCode();
 }

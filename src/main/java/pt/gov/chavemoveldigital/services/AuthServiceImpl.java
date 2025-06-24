@@ -70,6 +70,7 @@ public class AuthServiceImpl implements AuthService {
         tempCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay);
     }
 
+    @Override
     public Integer generateCode() {
         Random random = new Random();
         int min = 100000;
