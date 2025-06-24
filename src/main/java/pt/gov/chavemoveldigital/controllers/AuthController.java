@@ -20,7 +20,6 @@ public class AuthController {
     @PostMapping("/authentication")
     public String authenticate(UserDTO userDTO, RedirectAttributes redirectAttributes) {
         TempCode tempCode = authService.authenticate(userDTO);
-        redirectAttributes.addFlashAttribute("message", "Hello, world!");
         redirectAttributes.addFlashAttribute("code", tempCode.getCode());
         return "redirect:/view";
     }
