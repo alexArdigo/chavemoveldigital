@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function() {
+            window.open('/view', '_blank');
+        }
+    </script>
+</head>
+<body>
+<h1 th:text="${message}"></h1>
+<h2 th:if="${code}" th:text="'Seu código: ' + ${code}"></h2>
+
+</body>
+</html>

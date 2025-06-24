@@ -3,7 +3,6 @@ package pt.gov.chavemoveldigital.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pt.gov.chavemoveldigital.entities.TempCode;
 import pt.gov.chavemoveldigital.entities.User;
 import pt.gov.chavemoveldigital.models.UserDTO;
@@ -29,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public Object authenticate(UserDTO userDTO) {
+    public TempCode authenticate(UserDTO userDTO) {
         User existingUser = userRepository.findUserByTelephoneNumber(userDTO.getTelephoneNumber());
         if (existingUser == null || existingUser.getNif() == null)
             throw new NullPointerException("Incorrect data");
@@ -49,6 +48,7 @@ public class AuthServiceImpl implements AuthService {
 
         return code;
     }
+
 
     @Override
     public Object insertCode(Long code) {
