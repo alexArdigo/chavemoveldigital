@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.apache.commons.codec.digest.DigestUtils;
-import pt.gov.chavemoveldigital.enums.ElectoralCircle;
+import pt.gov.chavemoveldigital.enums.District;
 import pt.gov.chavemoveldigital.enums.Municipality;
 import pt.gov.chavemoveldigital.models.UsersDTO;
 
@@ -21,8 +20,9 @@ public class User {
     String pin;
     String firstName;
     String lastName;
-    ElectoralCircle ElectoralCircle;
+    District district;
     Municipality municipality;
+    String parish;
 
     public User() {
     }
@@ -33,8 +33,9 @@ public class User {
         this.nif = usersDTO.getNif();
         this.firstName = usersDTO.getFirstName();
         this.lastName = usersDTO.getLastName();
-        ElectoralCircle = usersDTO.getElectoralCircle();
+        this.district = usersDTO.getDistrict();
         this.municipality = usersDTO.getMunicipality();
+        this.parish = usersDTO.getParish();
     }
 
     public Long getId() {
@@ -85,12 +86,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public ElectoralCircle getElectoralCircle() {
-        return ElectoralCircle;
+    public District getDistrict() {
+        return district;
     }
 
-    public void setElectoralCircle(ElectoralCircle electoralCircle) {
-        ElectoralCircle = electoralCircle;
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     public Municipality getMunicipality() {
@@ -99,5 +100,13 @@ public class User {
 
     public void setMunicipality(Municipality municipality) {
         this.municipality = municipality;
+    }
+
+    public String getParish() {
+        return parish;
+    }
+
+    public void setParish(String parish) {
+        this.parish = parish;
     }
 }

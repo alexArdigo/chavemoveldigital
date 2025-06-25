@@ -5,8 +5,9 @@
     "nif": 323456789,
     "firstName": "João",
     "lastName": "Silva",
-    "electoralCircle": "LISBOA",
-    "municipality": "CASCAIS"
+    "district": "LISBOA",
+    "municipality": "CASCAIS",
+    "parish": "São Domingos de Rana"
   },
   {
     "telephoneNumber": "+351920234567",
@@ -14,8 +15,9 @@
     "nif": 334567890,
     "firstName": "Maria",
     "lastName": "Santos",
-    "electoralCircle": "PORTO",
-    "municipality": "MATOSINHOS"
+    "district": "PORTO",
+    "municipality": "MATOSINHOS",
+    "parish": "Matosinhos e Leça da Palmeira"
   },
   {
     "telephoneNumber": "+351930345678",
@@ -23,8 +25,9 @@
     "nif": 345678901,
     "firstName": "António",
     "lastName": "Ferreira",
-    "electoralCircle": "COIMBRA",
-    "municipality": "FIGUEIRA_DA_FOZ"
+    "district": "COIMBRA",
+    "municipality": "FIGUEIRA_DA_FOZ",
+    "parish": "Buarcos e São Julião"
   },
   {
     "telephoneNumber": "+351940456789",
@@ -32,8 +35,9 @@
     "nif": 356789012,
     "firstName": "Ana",
     "lastName": "Rodrigues",
-    "electoralCircle": "BRAGA",
-    "municipality": "GUIMARAES"
+    "district": "BRAGA",
+    "municipality": "GUIMARAES",
+    "parish": "Oliveira, São Paio e São Sebastião"
   },
   {
     "telephoneNumber": "+351950567890",
@@ -41,8 +45,9 @@
     "nif": 367890123,
     "firstName": "Carlos",
     "lastName": "Pereira",
-    "electoralCircle": "SETUBAL",
-    "municipality": "ALMADA"
+    "district": "SETUBAL",
+    "municipality": "ALMADA",
+    "parish": "Almada, Cova da Piedade, Pragal e Cacilhas"
   },
   {
     "telephoneNumber": "+351960678901",
@@ -50,8 +55,9 @@
     "nif": 378901234,
     "firstName": "Sofia",
     "lastName": "Costa",
-    "electoralCircle": "FARO",
-    "municipality": "PORTIMAO"
+    "district": "FARO",
+    "municipality": "PORTIMAO",
+    "parish": "Portimão"
   },
   {
     "telephoneNumber": "+351970789012",
@@ -59,8 +65,9 @@
     "nif": 389012345,
     "firstName": "Miguel",
     "lastName": "Almeida",
-    "electoralCircle": "AVEIRO",
-    "municipality": "AGUEDA"
+    "district": "AVEIRO",
+    "municipality": "AGUEDA",
+    "parish": "Águeda e Borralha"
   },
   {
     "telephoneNumber": "+351910890123",
@@ -68,8 +75,9 @@
     "nif": 390123456,
     "firstName": "Catarina",
     "lastName": "Oliveira",
-    "electoralCircle": "LEIRIA",
-    "municipality": "MARINHA_GRANDE"
+    "district": "LEIRIA",
+    "municipality": "MARINHA_GRANDE",
+    "parish": "Marinha Grande"
   },
   {
     "telephoneNumber": "+351920901234",
@@ -77,8 +85,9 @@
     "nif": 301234567,
     "firstName": "Pedro",
     "lastName": "Martins",
-    "electoralCircle": "SANTAREM",
-    "municipality": "TORRES_NOVAS"
+    "district": "SANTAREM",
+    "municipality": "TORRES_NOVAS",
+    "parish": "Torres Novas (Santa Maria, Salvador e Santiago)"
   },
   {
     "telephoneNumber": "+351931012345",
@@ -86,8 +95,9 @@
     "nif": 312345678,
     "firstName": "Inês",
     "lastName": "Gomes",
-    "electoralCircle": "VISEU",
-    "municipality": "LAMEGO"
+    "district": "VISEU",
+    "municipality": "LAMEGO",
+    "parish": "Lamego (Almacave e Sé)"
   },
   {
     "telephoneNumber": "+351941123456",
@@ -95,8 +105,9 @@
     "nif": 335792468,
     "firstName": "Rui",
     "lastName": "Carvalho",
-    "electoralCircle": "CASTELO_BRANCO",
-    "municipality": "COVILHA"
+    "district": "CASTELO_BRANCO",
+    "municipality": "COVILHA",
+    "parish": "Covilhã e Canhoso"
   },
   {
     "telephoneNumber": "+351951234567",
@@ -104,8 +115,9 @@
     "nif": 346813579,
     "firstName": "Teresa",
     "lastName": "Ribeiro",
-    "electoralCircle": "GUARDA",
-    "municipality": "SEIA"
+    "district": "GUARDA",
+    "municipality": "SEIA",
+    "parish": "Seia, São Romão e Lapa dos Dinheiros"
   },
   {
     "telephoneNumber": "+351961345678",
@@ -113,8 +125,9 @@
     "nif": 357924680,
     "firstName": "Nuno",
     "lastName": "Teixeira",
-    "electoralCircle": "VIANA_DO_CASTELO",
-    "municipality": "PONTE_DE_LIMA"
+    "district": "VIANA_DO_CASTELO",
+    "municipality": "PONTE_DE_LIMA",
+    "parish": "Ponte de Lima"
   },
   {
     "telephoneNumber": "+351971456789",
@@ -122,8 +135,9 @@
     "nif": 368135791,
     "firstName": "Cristina",
     "lastName": "Dias",
-    "electoralCircle": "VILA_REAL",
-    "municipality": "CHAVES"
+    "district": "VILA_REAL",
+    "municipality": "CHAVES",
+    "parish": "Chaves (Santa Maria Maior)"
   },
   {
     "telephoneNumber": "+351910567890",
@@ -131,8 +145,9 @@
     "nif": 379246802,
     "firstName": "Ricardo",
     "lastName": "Sousa",
-    "electoralCircle": "BRAGANCA",
-    "municipality": "MIRANDELA"
+    "district": "BRAGANCA",
+    "municipality": "MIRANDELA",
+    "parish": "Mirandela"
   },
   {
     "telephoneNumber": "+351920678901",
@@ -140,8 +155,9 @@
     "nif": 380357913,
     "firstName": "Luísa",
     "lastName": "Fernandes",
-    "electoralCircle": "EVORA",
-    "municipality": "ESTREMOZ"
+    "district": "EVORA",
+    "municipality": "ESTREMOZ",
+    "parish": "Santo André"
   },
   {
     "telephoneNumber": "+351930789012",
@@ -149,8 +165,9 @@
     "nif": 391468024,
     "firstName": "Tiago",
     "lastName": "Pinto",
-    "electoralCircle": "BEJA",
-    "municipality": "SERPA"
+    "district": "BEJA",
+    "municipality": "SERPA",
+    "parish": "Serpa (Salvador)"
   },
   {
     "telephoneNumber": "+351940890123",
@@ -158,8 +175,9 @@
     "nif": 302579135,
     "firstName": "Patrícia",
     "lastName": "Lopes",
-    "electoralCircle": "PORTALEGRE",
-    "municipality": "ELVAS"
+    "district": "PORTALEGRE",
+    "municipality": "ELVAS",
+    "parish": "Elvas (Caia, São Pedro e Alcáçova)"
   },
   {
     "telephoneNumber": "+351950901234",
@@ -167,8 +185,9 @@
     "nif": 313680246,
     "firstName": "Bruno",
     "lastName": "Mendes",
-    "electoralCircle": "MADEIRA",
-    "municipality": "CAMARA_DE_LOBOS"
+    "district": "MADEIRA",
+    "municipality": "CAMARA_DE_LOBOS",
+    "parish": "Câmara de Lobos"
   },
   {
     "telephoneNumber": "+351961012345",
@@ -176,7 +195,8 @@
     "nif": 324791357,
     "firstName": "Sandra",
     "lastName": "Vieira",
-    "electoralCircle": "ACORES",
-    "municipality": "PRAIA_DA_VITORIA"
+    "district": "ACORES",
+    "municipality": "PRAIA_DA_VITORIA",
+    "parish": "Praia da Vitória"
   }
 ]

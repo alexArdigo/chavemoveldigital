@@ -1,6 +1,6 @@
 package pt.gov.chavemoveldigital.enums;
 
-public enum ElectoralCircle {
+public enum District {
     VIANA_DO_CASTELO,
     BRAGA,
     VILA_REAL,
