@@ -23,7 +23,6 @@ public class TempCode {
         this.code = code;
     }
 
-
     public Long getId() {
         return id;
     }

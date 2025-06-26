@@ -1,43 +1,52 @@
 package pt.gov.chavemoveldigital.enums;
 
 public enum District {
-    VIANA_DO_CASTELO,
-    BRAGA,
-    VILA_REAL,
-    BRAGANCA,
-    PORTO,
-    AVEIRO,
-    VISEU,
-    GUARDA,
+    VIANA_DO_CASTELO("Viana do Castelo"),
+    BRAGA("Braga"),
+    VILA_REAL("Vila Real"),
+    BRAGANCA("Bragança"),
+    PORTO("Porto"),
+    AVEIRO("Aveiro"),
+    VISEU("Viseu"),
+    GUARDA("Guarda"),
 
     // Portugal Continental - Centro
-    COIMBRA,
-    LEIRIA,
-    CASTELO_BRANCO,
+    COIMBRA("Coimbra"),
+    LEIRIA("Leiria"),
+    CASTELO_BRANCO("Castelo Branco"),
 
     // Portugal Continental - Lisboa e Vale do Tejo
-    SANTAREM,
-    LISBOA,
-    PORTALEGRE,
+    SANTAREM("Santarém"),
+    LISBOA("Lisboa"),
+    PORTALEGRE("Portalegre"),
 
     // Portugal Continental - Alentejo
-    EVORA,
-    BEJA,
+    EVORA("Évora"),
+    BEJA("Beja"),
 
     // Portugal Continental - Algarve
-    FARO,
+    FARO("Faro"),
 
     // Área Metropolitana de Lisboa
-    SETUBAL,
+    SETUBAL("Setúbal"),
 
     // Regiões Autónomas
-    MADEIRA,
-    ACORES,
+    MADEIRA("Madeira"),
+    ACORES("Açores"),
 
-    //Círculos da Emigração
-    EUROPA,
-    RESTO_DO_MUNDO,
+    // Círculos da Emigração
+    EUROPA("Europa"),
+    RESTO_DO_MUNDO("Resto do Mundo"),
 
-    ElectoralCircle() {
+    ELECTORAL_CIRCLE("Electoral Circle");
+
+    private final String value;
+
+    District(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

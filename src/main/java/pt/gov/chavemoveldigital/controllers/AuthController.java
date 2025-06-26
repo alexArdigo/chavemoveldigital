@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pt.gov.chavemoveldigital.entities.TempCode;
 import pt.gov.chavemoveldigital.models.UserDTO;
 import pt.gov.chavemoveldigital.services.AuthService;
 
@@ -18,14 +16,14 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/authentication")
-    public String authenticate(UserDTO userDTO, RedirectAttributes redirectAttributes) {
-        TempCode tempCode = authService.authenticate(userDTO);
-        redirectAttributes.addFlashAttribute("code", tempCode.getCode());
-        return "redirect:/view";
+    public ResponseEntity<?> authenticate(UserDTO userDTO) {
+        return ResponseEntity.ok().body(authService.authenticate(userDTO));
     }
 
     @PostMapping("/authentication/code")
     public ResponseEntity<?> insertCode(Integer code) {
         return ResponseEntity.ok().body(authService.insertCode(code));
     }
+
+
 }
