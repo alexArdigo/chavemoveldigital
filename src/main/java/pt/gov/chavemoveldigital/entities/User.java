@@ -1,11 +1,7 @@
 package pt.gov.chavemoveldigital.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import pt.gov.chavemoveldigital.enums.District;
-import pt.gov.chavemoveldigital.enums.Municipality;
+import jakarta.persistence.*;
 import pt.gov.chavemoveldigital.models.UsersDTO;
 
 @Entity
@@ -20,8 +16,8 @@ public class User {
     String pin;
     String firstName;
     String lastName;
-    District district;
-    Municipality municipality;
+    String district;
+    String municipality;
     String parish;
 
     public User() {
@@ -86,19 +82,19 @@ public class User {
         this.lastName = lastName;
     }
 
-    public District getDistrict() {
+    public String getDistrict() {
         return district;
     }
 
-    public void setDistrict(District district) {
+    public void setDistrict(String district) {
         this.district = district;
     }
 
-    public Municipality getMunicipality() {
+    public String getMunicipality() {
         return municipality;
     }
 
-    public void setMunicipality(Municipality municipality) {
+    public void setMunicipality(String municipality) {
         this.municipality = municipality;
     }
 

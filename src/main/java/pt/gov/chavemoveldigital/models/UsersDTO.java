@@ -1,8 +1,5 @@
 package pt.gov.chavemoveldigital.models;
 
-import pt.gov.chavemoveldigital.enums.District;
-import pt.gov.chavemoveldigital.enums.Municipality;
-
 public class UsersDTO {
 
     String telephoneNumber;
@@ -10,8 +7,8 @@ public class UsersDTO {
     Long nif;
     String firstName;
     String lastName;
-    District district;
-    Municipality municipality;
+    String district;
+    String municipality;
     String parish;
 
     public String getTelephoneNumber() {
@@ -54,19 +51,19 @@ public class UsersDTO {
         this.lastName = lastName;
     }
 
-    public District getDistrict() {
+    public String getDistrict() {
         return district;
     }
 
-    public void setDistrict(District district) {
+    public void setDistrict(String district) {
         this.district = district;
     }
 
-    public Municipality getMunicipality() {
+    public String getMunicipality() {
         return municipality;
     }
 
-    public void setMunicipality(Municipality municipality) {
+    public void setMunicipality(String municipality) {
         this.municipality = municipality;
     }
 
