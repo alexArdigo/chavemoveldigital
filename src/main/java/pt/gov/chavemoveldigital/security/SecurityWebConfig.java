@@ -21,7 +21,11 @@ public class SecurityWebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:8080"));
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "http://localhost:5174",
+                "http://localhost:8080"
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -55,7 +59,8 @@ public class SecurityWebConfig {
 
 /*            auth.requestMatchers( ... ).authenticated();*/
 
-            auth.requestMatchers("/authentication", "**").permitAll();
+            auth.requestMatchers("/authenticate", "**").permitAll();
+            auth.requestMatchers("/authenticate/code", "**").permitAll();
 
             //auth.requestMatchers("**").denyAll();
         });

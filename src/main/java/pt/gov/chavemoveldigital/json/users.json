@@ -5,8 +5,8 @@
     "nif": 323456789,
     "firstName": "João",
     "lastName": "Silva",
-    "district": "LISBOA",
-    "municipality": "CASCAIS",
+    "district": "Lisboa",
+    "municipality": "Cascais",
     "parish": "São Domingos de Rana"
   },
   {
@@ -15,9 +15,9 @@
     "nif": 334567890,
     "firstName": "Maria",
     "lastName": "Santos",
-    "district": "PORTO",
-    "municipality": "MATOSINHOS",
-    "parish": "Matosinhos e Leça da Palmeira"
+    "district": "Porto",
+    "municipality": "Matosinhos",
+    "parish": "União das freguesias de Matosinhos e Leça da Palmeira"
   },
   {
     "telephoneNumber": "+351930345678",
@@ -25,8 +25,8 @@
     "nif": 345678901,
     "firstName": "António",
     "lastName": "Ferreira",
-    "district": "COIMBRA",
-    "municipality": "FIGUEIRA_DA_FOZ",
+    "district": "Coimbra",
+    "municipality": "Figueira da Foz",
     "parish": "Buarcos e São Julião"
   },
   {
@@ -35,9 +35,9 @@
     "nif": 356789012,
     "firstName": "Ana",
     "lastName": "Rodrigues",
-    "district": "BRAGA",
-    "municipality": "GUIMARAES",
-    "parish": "Oliveira, São Paio e São Sebastião"
+    "district": "Braga",
+    "municipality": "Guimarães",
+    "parish": "União das freguesias de Oliveira, São Paio e São Sebastião"
   },
   {
     "telephoneNumber": "+351950567890",
@@ -45,9 +45,9 @@
     "nif": 367890123,
     "firstName": "Carlos",
     "lastName": "Pereira",
-    "district": "SETUBAL",
-    "municipality": "ALMADA",
-    "parish": "Almada, Cova da Piedade, Pragal e Cacilhas"
+    "district": "Setúbal",
+    "municipality": "Almada",
+    "parish": "União das freguesias de Almada, Cova da Piedade, Pragal e Cacilhas"
   },
   {
     "telephoneNumber": "+351960678901",
@@ -55,8 +55,8 @@
     "nif": 378901234,
     "firstName": "Sofia",
     "lastName": "Costa",
-    "district": "FARO",
-    "municipality": "PORTIMAO",
+    "district": "Faro",
+    "municipality": "Portimão",
     "parish": "Portimão"
   },
   {
@@ -65,9 +65,9 @@
     "nif": 389012345,
     "firstName": "Miguel",
     "lastName": "Almeida",
-    "district": "AVEIRO",
-    "municipality": "AGUEDA",
-    "parish": "Águeda e Borralha"
+    "district": "Aveiro",
+    "municipality": "Águeda",
+    "parish": "União das freguesias de Águeda e Borralha"
   },
   {
     "telephoneNumber": "+351910890123",
@@ -75,8 +75,8 @@
     "nif": 390123456,
     "firstName": "Catarina",
     "lastName": "Oliveira",
-    "district": "LEIRIA",
-    "municipality": "MARINHA_GRANDE",
+    "district": "Leiria",
+    "municipality": "Marinha Grande",
     "parish": "Marinha Grande"
   },
   {
@@ -85,9 +85,9 @@
     "nif": 301234567,
     "firstName": "Pedro",
     "lastName": "Martins",
-    "district": "SANTAREM",
-    "municipality": "TORRES_NOVAS",
-    "parish": "Torres Novas (Santa Maria, Salvador e Santiago)"
+    "district": "Santarém",
+    "municipality": "Torres Novas",
+    "parish": "União das freguesias de Torres Novas (Santa Maria, Salvador e Santiago)"
   },
   {
     "telephoneNumber": "+351931012345",
@@ -95,8 +95,8 @@
     "nif": 312345678,
     "firstName": "Inês",
     "lastName": "Gomes",
-    "district": "VISEU",
-    "municipality": "LAMEGO",
+    "district": "Viseu",
+    "municipality": "Lamego",
     "parish": "Lamego (Almacave e Sé)"
   },
   {
@@ -105,9 +105,9 @@
     "nif": 335792468,
     "firstName": "Rui",
     "lastName": "Carvalho",
-    "district": "CASTELO_BRANCO",
-    "municipality": "COVILHA",
-    "parish": "Covilhã e Canhoso"
+    "district": "Castelo Branco",
+    "municipality": "Covilhã",
+    "parish": "União das freguesias de Covilhã e Canhoso"
   },
   {
     "telephoneNumber": "+351951234567",
@@ -115,9 +115,9 @@
     "nif": 346813579,
     "firstName": "Teresa",
     "lastName": "Ribeiro",
-    "district": "GUARDA",
-    "municipality": "SEIA",
-    "parish": "Seia, São Romão e Lapa dos Dinheiros"
+    "district": "Guarda",
+    "municipality": "Seia",
+    "parish": "União das freguesias de Seia, São Romão e Lapa dos Dinheiros"
   },
   {
     "telephoneNumber": "+351961345678",
@@ -125,8 +125,8 @@
     "nif": 357924680,
     "firstName": "Nuno",
     "lastName": "Teixeira",
-    "district": "VIANA_DO_CASTELO",
-    "municipality": "PONTE_DE_LIMA",
+    "district": "Viana do Castelo",
+    "municipality": "Ponte de Lima",
     "parish": "Ponte de Lima"
   },
   {
@@ -135,9 +135,9 @@
     "nif": 368135791,
     "firstName": "Cristina",
     "lastName": "Dias",
-    "district": "VILA_REAL",
-    "municipality": "CHAVES",
-    "parish": "Chaves (Santa Maria Maior)"
+    "district": "Vila Real",
+    "municipality": "Chaves",
+    "parish": "Santa Maria Maior"
   },
   {
     "telephoneNumber": "+351910567890",
@@ -145,8 +145,8 @@
     "nif": 379246802,
     "firstName": "Ricardo",
     "lastName": "Sousa",
-    "district": "BRAGANCA",
-    "municipality": "MIRANDELA",
+    "district": "Bragança",
+    "municipality": "Mirandela",
     "parish": "Mirandela"
   },
   {
@@ -155,9 +155,9 @@
     "nif": 380357913,
     "firstName": "Luísa",
     "lastName": "Fernandes",
-    "district": "EVORA",
-    "municipality": "ESTREMOZ",
-    "parish": "Santo André"
+    "district": "Évora",
+    "municipality": "Estremoz",
+    "parish": "São Domingos de Ana Loura"
   },
   {
     "telephoneNumber": "+351930789012",
@@ -165,9 +165,9 @@
     "nif": 391468024,
     "firstName": "Tiago",
     "lastName": "Pinto",
-    "district": "BEJA",
-    "municipality": "SERPA",
-    "parish": "Serpa (Salvador)"
+    "district": "Beja",
+    "municipality": "Serpa",
+    "parish": "Brinches"
   },
   {
     "telephoneNumber": "+351940890123",
@@ -175,8 +175,8 @@
     "nif": 302579135,
     "firstName": "Patrícia",
     "lastName": "Lopes",
-    "district": "PORTALEGRE",
-    "municipality": "ELVAS",
+    "district": "Portalegre",
+    "municipality": "Elvas",
     "parish": "Caia, São Pedro e Alcáçova"
   },
   {
@@ -185,8 +185,8 @@
     "nif": 313680246,
     "firstName": "Bruno",
     "lastName": "Mendes",
-    "district": "MADEIRA",
-    "municipality": "CAMARA_DE_LOBOS",
+    "district": "Madeira",
+    "municipality": "Câmara de Lobos",
     "parish": "Câmara de Lobos"
   },
   {
@@ -195,8 +195,108 @@
     "nif": 324791357,
     "firstName": "Sandra",
     "lastName": "Vieira",
-    "district": "ACORES",
-    "municipality": "PRAIA_DA_VITORIA",
-    "parish": "Praia da Vitória"
+    "district": "Évora",
+    "municipality": "Redondo",
+    "parish": "Redondo"
+  },
+  {
+    "telephoneNumber": "+351962123456",
+    "pin": 1111,
+    "nif": 401234567,
+    "firstName": "Helena",
+    "lastName": "Borges",
+    "district": "Lisboa",
+    "municipality": "Sintra",
+    "parish": "Algueirão-Mem Martins"
+  },
+  {
+    "telephoneNumber": "+351963234567",
+    "pin": 2222,
+    "nif": 412345678,
+    "firstName": "Vítor",
+    "lastName": "Moura",
+    "district": "Porto",
+    "municipality": "Vila Nova de Gaia",
+    "parish": "Canidelo"
+  },
+  {
+    "telephoneNumber": "+351964345678",
+    "pin": 3333,
+    "nif": 423456789,
+    "firstName": "Paula",
+    "lastName": "Neves",
+    "district": "Braga",
+    "municipality": "Barcelos",
+    "parish": "Barcelinhos"
+  },
+  {
+    "telephoneNumber": "+351965456789",
+    "pin": 4444,
+    "nif": 434567890,
+    "firstName": "Jorge",
+    "lastName": "Cunha",
+    "district": "Setúbal",
+    "municipality": "Sesimbra",
+    "parish": "Sesimbra (Santiago)"
+  },
+  {
+    "telephoneNumber": "+351966567890",
+    "pin": 5555,
+    "nif": 445678901,
+    "firstName": "Raquel",
+    "lastName": "Faria",
+    "district": "Faro",
+    "municipality": "Loulé",
+    "parish": "Quarteira"
+  },
+  {
+    "telephoneNumber": "+351967678901",
+    "pin": 6666,
+    "nif": 456789012,
+    "firstName": "Eduardo",
+    "lastName": "Barros",
+    "district": "Aveiro",
+    "municipality": "Ovar",
+    "parish": "Esmoriz"
+  },
+  {
+    "telephoneNumber": "+351968789012",
+    "pin": 7777,
+    "nif": 467890123,
+    "firstName": "Filipa",
+    "lastName": "Lima",
+    "district": "Leiria",
+    "municipality": "Pombal",
+    "parish": "Pombal"
+  },
+  {
+    "telephoneNumber": "+351969890123",
+    "pin": 8888,
+    "nif": 478901234,
+    "firstName": "André",
+    "lastName": "Guerreiro",
+    "district": "Coimbra",
+    "municipality": "Cantanhede",
+    "parish": "Cadima"
+  },
+  {
+    "telephoneNumber": "+351970901234",
+    "pin": 9999,
+    "nif": 489012345,
+    "firstName": "Marta",
+    "lastName": "Pinto",
+    "district": "Viseu",
+    "municipality": "Tondela",
+    "parish": "Campo de Besteiros"
+  },
+  {
+    "telephoneNumber": "+351971012345",
+    "pin": 1010,
+    "nif": 490123456,
+    "firstName": "Bruno",
+    "lastName": "Silva",
+    "district": "Bragança",
+    "municipality": "Macedo de Cavaleiros",
+    "parish": "Chacim"
   }
 ]

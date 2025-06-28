@@ -17,9 +17,6 @@ import pt.gov.chavemoveldigital.models.UserDTO;
 import pt.gov.chavemoveldigital.repositories.TempCodeRepository;
 import pt.gov.chavemoveldigital.repositories.UserRepository;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.Random;
 
 @Service
@@ -27,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
 
     private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 
-    int delay = 60000;
+    int delay = 60;
 
     @Autowired
     private UserRepository userRepository;
@@ -77,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void setTimeout(TempCode code) {
-        tempCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay);
+        tempCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay*1000);
     }
 
     @Override
@@ -110,8 +107,8 @@ public class AuthServiceImpl implements AuthService {
         userRequest.put("id", user.getId());
         userRequest.put("firstName", user.getFirstName());
         userRequest.put("lastName", user.getLastName());
-        userRequest.put("district", user.getDistrict().getValue());
-        userRequest.put("municipality", user.getMunicipality().getValue());
+        userRequest.put("district", user.getDistrict());
+        userRequest.put("municipality", user.getMunicipality());
         userRequest.put("parish", user.getParish());
         return userRequest;
     }

@@ -15,12 +15,12 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/authentication")
+    @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(UserDTO userDTO) {
         return ResponseEntity.ok().body(authService.authenticate(userDTO));
     }
 
-    @PostMapping("/authentication/code")
+    @PostMapping("/authenticate/code")
     public ResponseEntity<?> insertCode(Integer code) {
         return ResponseEntity.ok().body(authService.insertCode(code));
     }
