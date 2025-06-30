@@ -1,36 +1,34 @@
 package pt.gov.chavemoveldigital.services;
 
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import pt.gov.chavemoveldigital.entities.TempCode;
+import org.springframework.web.servlet.view.RedirectView;
+import pt.gov.chavemoveldigital.entities.AuthCode;
+import pt.gov.chavemoveldigital.entities.SMSCode;
 import pt.gov.chavemoveldigital.entities.User;
-import pt.gov.chavemoveldigital.models.CodeDTO;
-import pt.gov.chavemoveldigital.models.UserDTO;
-import pt.gov.chavemoveldigital.repositories.TempCodeRepository;
+import pt.gov.chavemoveldigital.repositories.AuthCodeRepository;
+import pt.gov.chavemoveldigital.repositories.SMSCodeRepository;
 import pt.gov.chavemoveldigital.repositories.UserRepository;
 
+import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
-
-    int delay = 60;
+    int delay = 600;
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private TempCodeRepository tempCodeRepository;
+    private SMSCodeRepository SMSCodeRepository;
+
+    @Autowired
+    private AuthCodeRepository authCodeRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -40,41 +38,72 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public CodeDTO authenticate(UserDTO userDTO) {
-        User existingUser = userRepository.findUserByTelephoneNumber(userDTO.getTelephoneNumber());
+    public Map<String, Object> authenticate(String telephoneNumber, Integer pin, HttpSession session) {
+
+        verifyUser(telephoneNumber, pin);
+
+        SMSCode previousCode = SMSCodeRepository.findSMSCodeByTelephoneNumber(telephoneNumber);
+        if (previousCode != null) {
+            SMSCodeRepository.delete(previousCode);
+        }
+
+        SMSCode code = new SMSCode(telephoneNumber, generateCode());
+        SMSCodeRepository.save(code);
+        setTimeout(code);
+
+        session.setAttribute("pendingUser", telephoneNumber);
+
+        return Map.of(
+                "next", "/code-validation",
+                "params", Map.of("SMScode", code.getCode(), "delay", 60)
+        );
+    }
+
+    @Override
+    public RedirectView verifyCode(Integer code, HttpSession session) {
+        String telephone = session.getAttribute("pendingUser").toString();
+
+        if (!verifySmsCode(code, telephone)) {
+            return new RedirectView("/error?message=invalid_code");
+        }
+
+        SMSCode existingSMSCode = SMSCodeRepository.findSMSCodeByCode(code);
+        if (existingSMSCode == null || existingSMSCode.getId() == null) {
+            return new RedirectView("/error?message=invalid_code");
+        }
+
+        // Authenticated
+        session.setAttribute("user", telephone);
+
+        String clientId = session.getAttribute("client_id").toString();
+        String redirectUri = session.getAttribute("redirect_uri").toString();
+
+        String authCode = UUID.randomUUID().toString();
+        authCodeRepository.save(new AuthCode(authCode, clientId));
+
+        System.out.println("redirect = " + redirectUri + "?code=" + authCode);
+
+        return new RedirectView(redirectUri + "?code=" + authCode);
+    }
+
+    @Override
+    public void verifyUser(String telephoneNumber, Integer pin) {
+        User existingUser = userRepository.findUserByTelephoneNumber(telephoneNumber);
         if (existingUser == null || existingUser.getNif() == null)
             throw new NullPointerException("Incorrect data");
 
-        if (!passwordEncoder.matches(userDTO.getPin().toString(), existingUser.getPin()))
+        if (!passwordEncoder.matches(pin.toString(), existingUser.getPin()))
             throw new NullPointerException("Incorrect data");
-
-        TempCode previousCode = tempCodeRepository.findByUser(existingUser);
-        if (previousCode != null) {
-            tempCodeRepository.delete(previousCode);
-        }
-
-        TempCode code = new TempCode(existingUser, generateCode());
-        tempCodeRepository.save(code);
-        setTimeout(code);
-
-        return new CodeDTO(code.getCode(), delay);
     }
 
     @Override
-    public User insertCode(Integer code) {
-        TempCode existingTempCode = tempCodeRepository.findTempCodeByCode(code);
-        if (existingTempCode == null || existingTempCode.getId() == null) {
-            throw new NullPointerException("Incorrect code");
-        }
-        User user = existingTempCode.getUser();
-        tempCodeRepository.delete(existingTempCode);
-        apiClient(user);
-        return user;
+    public boolean verifySmsCode(Integer code, String telephone) {
+        return SMSCodeRepository.existsSMSCodeByCodeAndTelephoneNumber(code, telephone);
     }
 
     @Override
-    public void setTimeout(TempCode code) {
-        tempCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay*1000);
+    public void setTimeout(SMSCode code) {
+        tempCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay * 1000);
     }
 
     @Override
@@ -83,33 +112,5 @@ public class AuthServiceImpl implements AuthService {
         int min = 100000;
         int max = 999999;
         return random.nextInt(max - min) + min;
-    }
-
-
-    @Override
-    public void apiClient(User user) {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        JSONObject userRequest = getJsonObject(user);
-
-        System.out.println("userRequest = " + userRequest);
-        String requestUrl = "http://localhost:8080/voters/authenticated";
-        restTemplate.postForObject(requestUrl, new HttpEntity<>(userRequest.toString(), headers), UserDTO.class);
-
-    }
-
-    private static JSONObject getJsonObject(User user) {
-        JSONObject userRequest = new JSONObject();
-        userRequest.put("nif", user.getNif());
-        userRequest.put("telephoneNumber", user.getTelephoneNumber());
-        userRequest.put("id", user.getId());
-        userRequest.put("firstName", user.getFirstName());
-        userRequest.put("lastName", user.getLastName());
-        userRequest.put("district", user.getDistrict());
-        userRequest.put("municipality", user.getMunicipality());
-        userRequest.put("parish", user.getParish());
-        return userRequest;
     }
 }

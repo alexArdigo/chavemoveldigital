@@ -61,7 +61,7 @@ public class SecurityWebConfig {
 
             auth.requestMatchers("/authenticate", "**").permitAll();
             auth.requestMatchers("/authenticate/code", "**").permitAll();
-
+            auth.requestMatchers("/oauth/**").permitAll();
             //auth.requestMatchers("**").denyAll();
         });
        /* httpSecurity.formLogin(loginConfig -> {

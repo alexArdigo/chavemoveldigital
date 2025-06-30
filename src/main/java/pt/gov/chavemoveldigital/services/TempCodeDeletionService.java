@@ -4,15 +4,15 @@ package pt.gov.chavemoveldigital.services;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pt.gov.chavemoveldigital.repositories.TempCodeRepository;
+import pt.gov.chavemoveldigital.repositories.SMSCodeRepository;
 
 @Service
 public class TempCodeDeletionService {
 
-    private final TempCodeRepository tempCodeRepository;
+    private final SMSCodeRepository SMSCodeRepository;
 
-    public TempCodeDeletionService(TempCodeRepository tempCodeRepository) {
-        this.tempCodeRepository = tempCodeRepository;
+    public TempCodeDeletionService(SMSCodeRepository SMSCodeRepository) {
+        this.SMSCodeRepository = SMSCodeRepository;
     }
 
     @Async
@@ -20,7 +20,7 @@ public class TempCodeDeletionService {
     public void deleteTempCodeAfterDelay(Long id, int delayMillis) {
         try {
             Thread.sleep(delayMillis);
-            tempCodeRepository.deleteTempCodeById(id);
+            SMSCodeRepository.deleteTempCodeById(id);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

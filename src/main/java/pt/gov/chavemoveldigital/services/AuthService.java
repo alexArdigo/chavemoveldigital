@@ -1,19 +1,22 @@
 package pt.gov.chavemoveldigital.services;
 
-import pt.gov.chavemoveldigital.entities.TempCode;
-import pt.gov.chavemoveldigital.entities.User;
-import pt.gov.chavemoveldigital.models.CodeDTO;
-import pt.gov.chavemoveldigital.models.UserDTO;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.web.servlet.view.RedirectView;
+import pt.gov.chavemoveldigital.entities.SMSCode;
+
+import java.util.Map;
 
 
 public interface AuthService {
-    CodeDTO authenticate(UserDTO userDTO);
+    Map<String, Object> authenticate(String telephoneNumber, Integer pin, HttpSession session);
 
-    Object insertCode(Integer code);
+    void verifyUser(String telephoneNumber, Integer pin);
 
-    void setTimeout(TempCode code);
+    RedirectView verifyCode(Integer code, HttpSession session);
+
+    boolean verifySmsCode(Integer code, String telephone);
+
+    void setTimeout(SMSCode code);
 
     Integer generateCode();
-
-    void apiClient(User user);
 }

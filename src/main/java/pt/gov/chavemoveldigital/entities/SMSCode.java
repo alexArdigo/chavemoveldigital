@@ -1,25 +1,20 @@
 package pt.gov.chavemoveldigital.entities;
 
 import jakarta.persistence.*;
-import org.aspectj.apache.bcel.classfile.Code;
-
-import java.util.Random;
 
 @Entity
-public class TempCode {
+public class SMSCode {
     @Id
     @GeneratedValue
     Long id;
     Integer code;
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    User user;
+    String telephoneNumber;
 
-    public TempCode() {
+    public SMSCode() {
     }
 
-    public TempCode(User user, Integer code) {
-        this.user = user;
+    public SMSCode(String telephoneNumber, Integer code) {
+        this.telephoneNumber = telephoneNumber;
         this.code = code;
     }
 
@@ -39,11 +34,11 @@ public class TempCode {
         this.code = code;
     }
 
-    public User getUser() {
-        return user;
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 }
