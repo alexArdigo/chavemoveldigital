@@ -12,6 +12,7 @@ import pt.gov.chavemoveldigital.entities.User;
 import pt.gov.chavemoveldigital.repositories.AuthCodeRepository;
 import pt.gov.chavemoveldigital.repositories.AuthTokenRepository;
 import pt.gov.chavemoveldigital.repositories.UserRepository;
+import pt.gov.chavemoveldigital.services.OAuthService;
 
 import java.util.Map;
 import java.util.UUID;
@@ -19,6 +20,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/oauth")
 public class OAuthController {
+
+    @Autowired
+    private OAuthService oAuthService;
 
     @Autowired
     private AuthCodeRepository authCodeRepository;
@@ -36,18 +40,14 @@ public class OAuthController {
             @RequestParam String redirect_uri,
             HttpSession session
     ) {
-        System.out.println(" Authorize endpoint called");
-        session.setAttribute("client_id", client_id);
-        session.setAttribute("redirect_uri", redirect_uri);
-        session.setAttribute("response_type", response_type);
-
-       /* if (session.getAttribute("user") != null) {
-            String code = UUID.randomUUID().toString();
-            authCodeRepository.save(new AuthCode(code, client_id));
-            return new RedirectView(redirect_uri + "?code=" + code);
-        }*/
-
-        return new RedirectView("http://localhost:5174/authorization");
+        return new RedirectView(
+                oAuthService.authorize(
+                        response_type,
+                        client_id,
+                        redirect_uri,
+                        session
+                )
+        );
     }
 
     @PostMapping("/token")
@@ -56,34 +56,13 @@ public class OAuthController {
             @RequestParam String client_id,
             @RequestParam String client_secret
     ) {
-        try {
-            AuthCode authCode = authCodeRepository.findAuthCodeByCodeAndClientId(code, client_id);
-
-            if (authCode == null || authCode.getCode() == null || authCode.getClientId() == null) {
-                return ResponseEntity.badRequest().body("Invalid code");
-            }
-
-            AuthToken token = new AuthToken(UUID.randomUUID().toString(), client_id);
-            authTokenRepository.save(token);
-
-            User user = userRepository.findById(authCode.getUserId())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-
-            authCodeRepository.delete(authCode);
-
-            return ResponseEntity.ok(Map.of(
-                    "access_token", token,
-                    "token_type", "Bearer",
-                    "expires_in", 3600,
-                    "user", user
-            ));
-
-        } catch (Exception e) {
-            System.err.println("Failed to send token to client backend: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "Failed to complete authentication"));
-
-        }
+        return ResponseEntity.ok().body(
+                oAuthService.token(
+                        code,
+                        client_id,
+                        client_secret
+                )
+        );
     }
 
 }

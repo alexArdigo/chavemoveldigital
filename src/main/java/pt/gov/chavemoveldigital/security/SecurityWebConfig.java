@@ -1,6 +1,7 @@
 package pt.gov.chavemoveldigital.security;
 
 import jakarta.servlet.DispatcherType;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,13 +23,11 @@ public class SecurityWebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("*"));
-        /*configuration.setAllowedOriginPatterns(List.of(
+        configuration.setAllowedOriginPatterns(List.of(
                 "http://localhost:5173",
                 "http://localhost:5174",
-                "http://localhost:8080",
-                "http://localhost:9090"
-        ));*/
+                "http://localhost:8080"
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -49,14 +48,12 @@ public class SecurityWebConfig {
         httpSecurity.authorizeHttpRequests(auth -> {
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
 
-            auth.requestMatchers("/authenticate").permitAll();
-            auth.requestMatchers("/authenticate/code").permitAll();
+            auth.requestMatchers("/user/**").permitAll();
             auth.requestMatchers("/oauth/**").permitAll();
 
-            // For testing, allow all other requests (remove this in production)
-            auth.requestMatchers("/**").permitAll();
+            auth.requestMatchers("/**").denyAll();
         });
-       /* httpSecurity.formLogin(loginConfig -> {
+        httpSecurity.formLogin(loginConfig -> {
             loginConfig.loginPage("/login");
             loginConfig.loginProcessingUrl("/login");
             loginConfig.successHandler((request, response, authentication) -> {
@@ -65,16 +62,18 @@ public class SecurityWebConfig {
             loginConfig.failureHandler((request, response, authentication) -> {
                 response.setStatus(401);
             });
-        });*/
+        });
 
-        /*httpSecurity.logout(
+        httpSecurity.logout(
                 logout -> {
                     logout.logoutUrl("/logout");
                     logout.deleteCookies("JSESSIONID");
                     logout.logoutSuccessHandler((request, response, authentication) -> {
                         response.setStatus(HttpServletResponse.SC_OK);
                     });
-                });*/
+                });
+
+        httpSecurity.authenticationProvider(userAuthenticationProvider);
 
         httpSecurity.authenticationProvider(userAuthenticationProvider);
 

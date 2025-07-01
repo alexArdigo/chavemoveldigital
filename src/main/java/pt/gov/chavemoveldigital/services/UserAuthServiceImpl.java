@@ -1,5 +1,7 @@
 package pt.gov.chavemoveldigital.services;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,9 +19,10 @@ import java.util.Random;
 import java.util.UUID;
 
 @Service
-public class AuthServiceImpl implements AuthService {
+public class UserAuthServiceImpl implements UserAuthService {
 
-    int delay = 600;
+
+    private final int delay = 600;
 
     @Autowired
     private UserRepository userRepository;
@@ -34,13 +37,15 @@ public class AuthServiceImpl implements AuthService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private TempCodeDeletionService tempCodeDeletionService;
+    private SMSCodeDeletionService SMSCodeDeletionService;
 
+    @Autowired
+    private HttpServletRequest request;
 
     @Override
     public Map<String, Object> authenticate(String telephoneNumber, Integer pin, HttpSession session) {
 
-        verifyUser(telephoneNumber, pin);
+        validateUser(telephoneNumber, pin);
 
         SMSCode previousCode = SMSCodeRepository.findSMSCodeByTelephoneNumber(telephoneNumber);
         if (previousCode != null) {
@@ -52,6 +57,7 @@ public class AuthServiceImpl implements AuthService {
         setTimeout(code);
 
         session.setAttribute("pendingUser", telephoneNumber);
+        session.setAttribute("pin", pin);
 
         return Map.of(
                 "next", "/code-validation",
@@ -60,8 +66,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public RedirectView verifyCode(Integer code, HttpSession session) {
+    public RedirectView verifySMSCode(Integer code, HttpSession session) {
         String telephone = session.getAttribute("pendingUser").toString();
+        String pin = session.getAttribute("pin").toString();
 
         SMSCode existingSMSCode = SMSCodeRepository.findSMSCodeByCode(code);
         if (existingSMSCode == null || existingSMSCode.getId() == null) {
@@ -75,7 +82,13 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // Authenticated
+        // /login the user
+
+        userLoginWithHttpServletRequest(telephone, pin);
+
         session.setAttribute("user", telephone);
+        session.removeAttribute("pendingUser");
+        session.removeAttribute("pin");
 
         String clientId = session.getAttribute("client_id").toString();
         String redirectUri = session.getAttribute("redirect_uri").toString();
@@ -87,23 +100,29 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void verifyUser(String telephoneNumber, Integer pin) {
+    public User validateUser(String telephoneNumber, Integer pin) {
+
         User existingUser = userRepository.findUserByTelephoneNumber(telephoneNumber);
         if (existingUser == null || existingUser.getNif() == null)
             throw new NullPointerException("Incorrect data");
 
         if (!passwordEncoder.matches(pin.toString(), existingUser.getPin()))
             throw new NullPointerException("Incorrect data");
+
+        return existingUser;
     }
 
-    @Override
-    public boolean verifySmsCode(Integer code, String telephone) {
-        return SMSCodeRepository.existsSMSCodeByCodeAndTelephoneNumber(code, telephone);
+    public void userLoginWithHttpServletRequest(String telephone, String pin) {
+        try {
+            request.login(telephone, pin);
+        } catch (ServletException e) {
+            throw new RuntimeException("Authentication failed: " + e.getMessage(), e);
+        }
     }
 
     @Override
     public void setTimeout(SMSCode code) {
-        tempCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay * 1000);
+        SMSCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay * 1000);
     }
 
     @Override

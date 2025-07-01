@@ -6,16 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import pt.gov.chavemoveldigital.services.AuthService;
+import pt.gov.chavemoveldigital.services.UserAuthService;
 
 
 @Controller
-public class AuthController {
+@RequestMapping("/user")
+public class UserAuthController {
 
     @Autowired
-    private AuthService authService;
+    private UserAuthService userAuthService;
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(
@@ -23,12 +25,12 @@ public class AuthController {
             @RequestParam Integer pin,
             HttpSession session
     ) {
-        return ResponseEntity.ok(authService.authenticate(telephoneNumber, pin, session));
+        return ResponseEntity.ok(userAuthService.authenticate(telephoneNumber, pin, session));
     }
 
-    @PostMapping("/authenticate/code")
-    public RedirectView verifyCode(@RequestParam Integer code, HttpSession session) {
-        return authService.verifyCode(code, session);
+    @PostMapping("/verify-smscode")
+    public RedirectView verifySMSCode(@RequestParam Integer code, HttpSession session) {
+        return userAuthService.verifySMSCode(code, session);
     }
 
 
