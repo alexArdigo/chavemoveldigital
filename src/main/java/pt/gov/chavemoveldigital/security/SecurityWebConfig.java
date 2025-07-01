@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -21,11 +22,13 @@ public class SecurityWebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        /*configuration.setAllowedOriginPatterns(List.of(
                 "http://localhost:5173",
                 "http://localhost:5174",
-                "http://localhost:8080"
-        ));
+                "http://localhost:8080",
+                "http://localhost:9090"
+        ));*/
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -41,28 +44,17 @@ public class SecurityWebConfig {
             corsConfigurer.configurationSource(corsConfigurationSource());
         });
 
-        httpSecurity.csrf(csrfConfigurer -> {
-            csrfConfigurer.disable();
-        });
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
         httpSecurity.authorizeHttpRequests(auth -> {
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
-           // auth.requestMatchers("/login", "/logged", "/users").permitAll();
 
-/*            auth.requestMatchers(
-                    HttpMethod.POST, ... ).hasRole("ADMIN");*/
-
-
-/*            auth.requestMatchers(
-                    HttpMethod.POST,  ... ).authenticated();*/
-
-
-/*            auth.requestMatchers( ... ).authenticated();*/
-
-            auth.requestMatchers("/authenticate", "**").permitAll();
-            auth.requestMatchers("/authenticate/code", "**").permitAll();
+            auth.requestMatchers("/authenticate").permitAll();
+            auth.requestMatchers("/authenticate/code").permitAll();
             auth.requestMatchers("/oauth/**").permitAll();
-            //auth.requestMatchers("**").denyAll();
+
+            // For testing, allow all other requests (remove this in production)
+            auth.requestMatchers("/**").permitAll();
         });
        /* httpSecurity.formLogin(loginConfig -> {
             loginConfig.loginPage("/login");

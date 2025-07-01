@@ -55,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
 
         return Map.of(
                 "next", "/code-validation",
-                "params", Map.of("SMScode", code.getCode(), "delay", 60)
+                "params", Map.of("SMScode", code.getCode(), "delay", delay)
         );
     }
 
@@ -63,13 +63,15 @@ public class AuthServiceImpl implements AuthService {
     public RedirectView verifyCode(Integer code, HttpSession session) {
         String telephone = session.getAttribute("pendingUser").toString();
 
-        if (!verifySmsCode(code, telephone)) {
-            return new RedirectView("/error?message=invalid_code");
-        }
-
         SMSCode existingSMSCode = SMSCodeRepository.findSMSCodeByCode(code);
         if (existingSMSCode == null || existingSMSCode.getId() == null) {
             return new RedirectView("/error?message=invalid_code");
+        }
+
+        User user = userRepository.findUserByTelephoneNumber(telephone);
+
+        if (user == null || user.getNif() == null) {
+            return new RedirectView("/error?message=invalid_user");
         }
 
         // Authenticated
@@ -79,9 +81,7 @@ public class AuthServiceImpl implements AuthService {
         String redirectUri = session.getAttribute("redirect_uri").toString();
 
         String authCode = UUID.randomUUID().toString();
-        authCodeRepository.save(new AuthCode(authCode, clientId));
-
-        System.out.println("redirect = " + redirectUri + "?code=" + authCode);
+        authCodeRepository.save(new AuthCode(authCode, clientId, user.getId()));
 
         return new RedirectView(redirectUri + "?code=" + authCode);
     }

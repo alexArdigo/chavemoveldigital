@@ -13,13 +13,15 @@ public class AuthCode {
 
     private String code;
     private String clientId;
+    private Long userId;
 
     public AuthCode() {
     }
 
-    public AuthCode(String code, String clientId) {
+    public AuthCode(String code, String clientId, Long userId) {
         this.code = code;
         this.clientId = clientId;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -44,5 +46,12 @@ public class AuthCode {
 
     public void setClientId(String client_id) {
         this.clientId = client_id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
