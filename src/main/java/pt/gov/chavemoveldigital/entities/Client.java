@@ -12,9 +12,16 @@ public class Client {
     @GeneratedValue
     private Long id;
     private String name;
+    private String clientId;
     private String secret;
 
     public Client() {
+    }
+
+    public Client(String name, String clientId, String secret) {
+        this.name = name;
+        this.clientId = clientId;
+        this.secret = secret;
     }
 
     public Long getId() {
@@ -29,6 +36,14 @@ public class Client {
         return name;
     }
 
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -40,4 +55,5 @@ public class Client {
     public void setSecret(String secret) {
         this.secret = secret;
     }
+
 }

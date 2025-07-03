@@ -1,90 +1,87 @@
 package pt.gov.chavemoveldigital.services;
 
-import jakarta.servlet.http.HttpSession;
+import ch.qos.logback.core.subst.Token;
+import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import pt.gov.chavemoveldigital.entities.AuthCode;
-import pt.gov.chavemoveldigital.entities.AuthToken;
+import pt.gov.chavemoveldigital.entities.Client;
+import pt.gov.chavemoveldigital.entities.OAuthToken;
 import pt.gov.chavemoveldigital.entities.User;
 import pt.gov.chavemoveldigital.repositories.AuthCodeRepository;
-import pt.gov.chavemoveldigital.repositories.AuthTokenRepository;
+import pt.gov.chavemoveldigital.repositories.ClientRepository;
+import pt.gov.chavemoveldigital.repositories.OAuthTokenRepository;
 import pt.gov.chavemoveldigital.repositories.UserRepository;
+import pt.gov.chavemoveldigital.security.UserAuthenticationProvider;
 
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class OAuthServiceImpl implements OAuthService {
 
     @Autowired
-    private AuthCodeRepository authCodeRepository;
-
-    @Autowired
-    private AuthTokenRepository authTokenRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
-    public OAuthServiceImpl(AuthCodeRepository authCodeRepository) {
-        this.authCodeRepository = authCodeRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private UserAuthenticationProvider userAuthenticationProvider;
+
+    @Autowired
+    private OAuthTokenRepository oAuthTokenRepository;
+
+    @Override
+    public void saveClientToken(JsonNode payload) {
+        String token = payload.get("token").asText();
+        String clientId = payload.get("clientId").asText();
+        String redirectUri = payload.get("redirectUri").asText();
+
+        if (token == null || clientId == null || redirectUri == null)
+            throw new IllegalArgumentException("Params cannot be null");
+
+        Client client = clientRepository.findClientByClientId(clientId);
+
+        oAuthTokenRepository.save(new OAuthToken(token, client, redirectUri));
     }
 
     @Override
-    public String authorize(String response_type, String client_id, String redirect_uri, HttpSession session) {
+    public Map<String, Object> token(String clientId, String clientSecret, String userId) {
 
-        session.setAttribute("client_id", client_id);
-        session.setAttribute("redirect_uri", redirect_uri);
-        session.setAttribute("response_type", response_type);
+        if (clientId == null || clientSecret == null || userId == null)
+            throw new IllegalArgumentException("Params cannot be null");
 
-        if (session.getAttribute("user") != null) {
-            String code = UUID.randomUUID().toString();
+        Client client = clientRepository.findClientByClientIdAndSecret(clientId, clientSecret);
 
-            Map<String, Object> authCodeAndUser = validateAuthCodeAndGetUser(code, client_id);
-            AuthCode authCode = (AuthCode) authCodeAndUser.get("authCode");
-            User user = (User) authCodeAndUser.get("user");
+        if (client == null || client.getId() == null)
+            throw new IllegalArgumentException("Invalid client ID or secret");
 
-            authCodeRepository.save(new AuthCode(code, client_id, user.getId()));
-            authCodeRepository.delete(authCode);
-            return redirect_uri + "?code=" + code;
-        }
-
-        return "http://localhost:5174/authorization";
-    }
-
-    @Override
-    public Map<String, Object> token(String code, String client_id, String client_secret) {
-        try {
-
-            Map<String, Object> authCodeAndUser = validateAuthCodeAndGetUser(code, client_id);
-            User user = (User) authCodeAndUser.get("user");
-
-            AuthToken token = new AuthToken(UUID.randomUUID().toString(), client_id);
-            authTokenRepository.save(token);
-
-            return Map.of(
-                    "access_token", token,
-                    "token_type", "Bearer",
-                    "expires_in", 3600,
-                    "user", user
-            );
-
-        } catch (Exception e) {
-            System.err.println("Failed to send token to client backend: " + e.getMessage());
-            return Map.of("error", "Failed to complete authentication");
-
-        }
-    }
-
-    @Override
-    public Map<String, Object> validateAuthCodeAndGetUser(String code, String client_id) {
-        AuthCode authCode = authCodeRepository.findAuthCodeByCodeAndClientId(code, client_id);
-        if (authCode == null || authCode.getCode() == null || authCode.getClientId() == null) {
-            throw new IllegalArgumentException("Invalid authorization code or client ID");
-        }
-        User user = userRepository.findById(authCode.getUserId())
+        User user = userRepository.findById(Long.parseLong(userId))
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return Map.of("authCode", authCode, "user", user);
+
+        UsernamePasswordAuthenticationToken token = authenticationToken(user.getNif(), user.getPin());
+
+        return Map.of("PROVIDER_TOKEN", token, "user", user);
+
     }
 
+    private UsernamePasswordAuthenticationToken authenticationToken(Long nif, String pin) {
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(nif, pin);
+        Authentication authentication = userAuthenticationProvider.authenticate(authToken);
 
+        if (authentication != null && authentication.isAuthenticated()) {
+            org.springframework.security.core.context.SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        request.getSession(true).setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+
+        return authToken;
+    }
 }

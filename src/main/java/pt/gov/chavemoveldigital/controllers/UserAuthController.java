@@ -13,7 +13,7 @@ import pt.gov.chavemoveldigital.services.UserAuthService;
 
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserAuthController {
 
     @Autowired
@@ -22,16 +22,17 @@ public class UserAuthController {
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(
             @RequestParam String telephoneNumber,
-            @RequestParam Integer pin,
-            HttpSession session
+            @RequestParam Integer pin
     ) {
-        return ResponseEntity.ok(userAuthService.authenticate(telephoneNumber, pin, session));
+        return ResponseEntity.ok(userAuthService.authenticate(telephoneNumber, pin));
     }
 
     @PostMapping("/verify-smscode")
-    public RedirectView verifySMSCode(@RequestParam Integer code, HttpSession session) {
-        return userAuthService.verifySMSCode(code, session);
+    public ResponseEntity<?> verifySMSCode(
+            @RequestParam Integer SMSCode,
+            @RequestParam String clientToken
+    ) {
+        return ResponseEntity.ok().body(userAuthService.verifySMSCode(SMSCode, clientToken));
     }
-
 
 }

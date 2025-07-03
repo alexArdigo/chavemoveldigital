@@ -48,12 +48,13 @@ public class SecurityWebConfig {
         httpSecurity.authorizeHttpRequests(auth -> {
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
 
-            auth.requestMatchers("/user/**").permitAll();
+            auth.requestMatchers("/users/verify-smscode").permitAll();
+            auth.requestMatchers("/users/**").permitAll();
             auth.requestMatchers("/oauth/**").permitAll();
 
             auth.requestMatchers("/**").denyAll();
         });
-        httpSecurity.formLogin(loginConfig -> {
+       /* httpSecurity.formLogin(loginConfig -> {
             loginConfig.loginPage("/login");
             loginConfig.loginProcessingUrl("/login");
             loginConfig.successHandler((request, response, authentication) -> {
@@ -62,7 +63,7 @@ public class SecurityWebConfig {
             loginConfig.failureHandler((request, response, authentication) -> {
                 response.setStatus(401);
             });
-        });
+        });*/
 
         httpSecurity.logout(
                 logout -> {

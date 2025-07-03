@@ -1,21 +1,37 @@
 package pt.gov.chavemoveldigital.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import java.util.Random;
 
 @Entity
 public class SMSCode {
     @Id
     @GeneratedValue
-    Long id;
-    Integer code;
-    String telephoneNumber;
+    private Long id;
+    private Integer code;
+    private String telephoneNumber;
+    private String hashedPin;
 
     public SMSCode() {
     }
 
-    public SMSCode(String telephoneNumber, Integer code) {
+    public SMSCode(String telephoneNumber, Integer pin) {
         this.telephoneNumber = telephoneNumber;
-        this.code = code;
+        this.code = generateCode();
+        this.hashedPin = hashPin(pin);
+    }
+
+    public Integer generateCode() {
+        Random random = new Random();
+        int min = 100000;
+        int max = 999999;
+        return random.nextInt(max - min) + min;
+    }
+
+    private String hashPin(Integer pin) {
+        return BCrypt.hashpw(pin.toString(), BCrypt.gensalt());
     }
 
     public Long getId() {
@@ -40,5 +56,13 @@ public class SMSCode {
 
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getHashedPin() {
+        return hashedPin;
+    }
+
+    public void setHashedPin(String hashedPin) {
+        this.hashedPin = hashedPin;
     }
 }

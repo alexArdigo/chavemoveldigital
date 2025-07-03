@@ -3,6 +3,7 @@ package pt.gov.chavemoveldigital.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Entity
 public class AuthCode {
@@ -23,6 +24,8 @@ public class AuthCode {
         this.clientId = clientId;
         this.userId = userId;
     }
+
+
 
     public Long getId() {
         return id;

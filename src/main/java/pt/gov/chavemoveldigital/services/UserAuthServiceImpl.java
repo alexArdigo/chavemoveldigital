@@ -1,22 +1,23 @@
 package pt.gov.chavemoveldigital.services;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
-import pt.gov.chavemoveldigital.entities.AuthCode;
+import pt.gov.chavemoveldigital.entities.OAuthToken;
 import pt.gov.chavemoveldigital.entities.SMSCode;
 import pt.gov.chavemoveldigital.entities.User;
-import pt.gov.chavemoveldigital.repositories.AuthCodeRepository;
+import pt.gov.chavemoveldigital.repositories.OAuthTokenRepository;
 import pt.gov.chavemoveldigital.repositories.SMSCodeRepository;
 import pt.gov.chavemoveldigital.repositories.UserRepository;
 
 import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
 @Service
 public class UserAuthServiceImpl implements UserAuthService {
@@ -31,19 +32,18 @@ public class UserAuthServiceImpl implements UserAuthService {
     private SMSCodeRepository SMSCodeRepository;
 
     @Autowired
-    private AuthCodeRepository authCodeRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private SMSCodeDeletionService SMSCodeDeletionService;
 
+
     @Autowired
-    private HttpServletRequest request;
+    private OAuthTokenRepository oAuthTokenRepository;
+
 
     @Override
-    public Map<String, Object> authenticate(String telephoneNumber, Integer pin, HttpSession session) {
+    public Map<String, Object> authenticate(String telephoneNumber, Integer pin) {
 
         validateUser(telephoneNumber, pin);
 
@@ -52,12 +52,9 @@ public class UserAuthServiceImpl implements UserAuthService {
             SMSCodeRepository.delete(previousCode);
         }
 
-        SMSCode code = new SMSCode(telephoneNumber, generateCode());
+        SMSCode code = new SMSCode(telephoneNumber, pin);
         SMSCodeRepository.save(code);
         setTimeout(code);
-
-        session.setAttribute("pendingUser", telephoneNumber);
-        session.setAttribute("pin", pin);
 
         return Map.of(
                 "next", "/code-validation",
@@ -66,37 +63,32 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public RedirectView verifySMSCode(Integer code, HttpSession session) {
-        String telephone = session.getAttribute("pendingUser").toString();
-        String pin = session.getAttribute("pin").toString();
+    public String verifySMSCode(Integer SMSCode, String clientToken) {
 
-        SMSCode existingSMSCode = SMSCodeRepository.findSMSCodeByCode(code);
+        SMSCode existingSMSCode = SMSCodeRepository.findSMSCodeByCode(SMSCode);
         if (existingSMSCode == null || existingSMSCode.getId() == null) {
-            return new RedirectView("/error?message=invalid_code");
+            throw new NullPointerException("SMS code not found or expired");
         }
 
-        User user = userRepository.findUserByTelephoneNumber(telephone);
-
-        if (user == null || user.getNif() == null) {
-            return new RedirectView("/error?message=invalid_user");
+        User user = userRepository.findUserByTelephoneNumber(existingSMSCode.getTelephoneNumber());
+        if (user == null || user.getId() == null) {
+            throw new NullPointerException("User not found");
         }
 
-        // Authenticated
-        // /login the user
+        OAuthToken oAuthToken = oAuthTokenRepository.findOAuthTokenByToken(clientToken);
+        if (oAuthToken == null || oAuthToken.getToken() == null)
+            throw new NullPointerException("Token not found");
 
-        userLoginWithHttpServletRequest(telephone, pin);
+        String redirectUriFrontendClientSide = callbackClient(
+                oAuthToken.getRedirectUri(),
+                oAuthToken.getToken(),
+                user.getId()
+        );
 
-        session.setAttribute("user", telephone);
-        session.removeAttribute("pendingUser");
-        session.removeAttribute("pin");
+        System.out.println("redirectUriFrontendClientSide = " + redirectUriFrontendClientSide);
 
-        String clientId = session.getAttribute("client_id").toString();
-        String redirectUri = session.getAttribute("redirect_uri").toString();
+        return redirectUriFrontendClientSide;
 
-        String authCode = UUID.randomUUID().toString();
-        authCodeRepository.save(new AuthCode(authCode, clientId, user.getId()));
-
-        return new RedirectView(redirectUri + "?code=" + authCode);
     }
 
     @Override
@@ -112,24 +104,27 @@ public class UserAuthServiceImpl implements UserAuthService {
         return existingUser;
     }
 
-    public void userLoginWithHttpServletRequest(String telephone, String pin) {
-        try {
-            request.login(telephone, pin);
-        } catch (ServletException e) {
-            throw new RuntimeException("Authentication failed: " + e.getMessage(), e);
-        }
-    }
-
     @Override
     public void setTimeout(SMSCode code) {
         SMSCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay * 1000);
     }
 
     @Override
-    public Integer generateCode() {
-        Random random = new Random();
-        int min = 100000;
-        int max = 999999;
-        return random.nextInt(max - min) + min;
+    public String callbackClient(String redirectUri, String cliendToken, Long userId) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject tokenRequest = new JSONObject();
+        tokenRequest.put("clientToken", cliendToken);
+        tokenRequest.put("userId", userId);
+
+        String response = restTemplate.postForObject(redirectUri, new HttpEntity<>(tokenRequest.toString(), headers), String.class);
+
+        if (response == null || response.isEmpty()) {
+            throw new RuntimeException("Failed to redirect to client side");
+        }
+
+        return response;
     }
 }
