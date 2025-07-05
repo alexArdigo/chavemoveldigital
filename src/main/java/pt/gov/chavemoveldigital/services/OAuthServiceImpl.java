@@ -26,19 +26,13 @@ import java.util.Map;
 public class OAuthServiceImpl implements OAuthService {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private ClientRepository clientRepository;
-
-    @Autowired
-    private UserAuthenticationProvider userAuthenticationProvider;
 
     @Autowired
     private OAuthTokenRepository oAuthTokenRepository;
 
     @Override
-    public void saveClientToken(JsonNode payload) {
+    public void saveToken(JsonNode payload) {
         String token = payload.get("token").asText();
         String clientId = payload.get("clientId").asText();
         String redirectUri = payload.get("redirectUri").asText();
@@ -49,39 +43,5 @@ public class OAuthServiceImpl implements OAuthService {
         Client client = clientRepository.findClientByClientId(clientId);
 
         oAuthTokenRepository.save(new OAuthToken(token, client, redirectUri));
-    }
-
-    @Override
-    public Map<String, Object> token(String clientId, String clientSecret, String userId) {
-
-        if (clientId == null || clientSecret == null || userId == null)
-            throw new IllegalArgumentException("Params cannot be null");
-
-        Client client = clientRepository.findClientByClientIdAndSecret(clientId, clientSecret);
-
-        if (client == null || client.getId() == null)
-            throw new IllegalArgumentException("Invalid client ID or secret");
-
-        User user = userRepository.findById(Long.parseLong(userId))
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UsernamePasswordAuthenticationToken token = authenticationToken(user.getNif(), user.getPin());
-
-        return Map.of("PROVIDER_TOKEN", token, "user", user);
-
-    }
-
-    private UsernamePasswordAuthenticationToken authenticationToken(Long nif, String pin) {
-        UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(nif, pin);
-        Authentication authentication = userAuthenticationProvider.authenticate(authToken);
-
-        if (authentication != null && authentication.isAuthenticated()) {
-            org.springframework.security.core.context.SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        request.getSession(true).setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
-
-        return authToken;
     }
 }

@@ -48,7 +48,7 @@ public class SecurityWebConfig {
         httpSecurity.authorizeHttpRequests(auth -> {
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
 
-            auth.requestMatchers("/users/verify-smscode").permitAll();
+            auth.requestMatchers("/users/**").permitAll();
             auth.requestMatchers("/users/**").permitAll();
             auth.requestMatchers("/oauth/**").permitAll();
 
