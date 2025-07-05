@@ -32,8 +32,6 @@ public class UserAuthController {
             @RequestParam Integer SMSCode,
             @RequestParam String token
     ) {
-        System.out.println("SMSCode = " + SMSCode);
-        System.out.println("token = " + token);
         return userAuthService.verifySMSCode(SMSCode, token);
     }
 
