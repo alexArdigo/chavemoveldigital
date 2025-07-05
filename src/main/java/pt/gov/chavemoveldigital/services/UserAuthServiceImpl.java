@@ -111,6 +111,8 @@ public class UserAuthServiceImpl implements UserAuthService {
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new RuntimeException("Failed to redirect to client side");
         }
+
+         oAuthTokenRepository.deleteByToken(token);
         return response.getBody();
     }
 

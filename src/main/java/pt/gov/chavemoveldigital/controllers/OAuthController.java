@@ -14,6 +14,13 @@ public class OAuthController {
     @Autowired
     private OAuthService oAuthService;
 
+    @GetMapping("/token")
+    public ResponseEntity<?> checkToken(
+            @RequestParam("token") String token
+    ) {
+        return ResponseEntity.ok().body(oAuthService.checkToken(token));
+    }
+
     @PostMapping("/token")
     public ResponseEntity<?> saveToken(@RequestBody JsonNode payload) {
         oAuthService.saveToken(payload);

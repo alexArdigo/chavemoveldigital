@@ -44,4 +44,10 @@ public class OAuthServiceImpl implements OAuthService {
 
         oAuthTokenRepository.save(new OAuthToken(token, client, redirectUri));
     }
+
+    @Override
+    public boolean checkToken(String token) {
+       return oAuthTokenRepository.existsOAuthTokenByToken(token);
+
+    }
 }

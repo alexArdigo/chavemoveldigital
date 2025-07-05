@@ -33,7 +33,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
         if (user != null) {
             List<GrantedAuthority> roles = new ArrayList<>();
-            roles.add(new SimpleGrantedAuthority("ROLE_VOTER"));
+            roles.add(new SimpleGrantedAuthority("ROLE_USER"));
             return new UsernamePasswordAuthenticationToken(telephone, pin, roles);
         }
 

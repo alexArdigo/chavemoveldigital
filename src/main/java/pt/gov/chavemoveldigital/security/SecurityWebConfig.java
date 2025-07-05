@@ -49,7 +49,6 @@ public class SecurityWebConfig {
             auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll();
 
             auth.requestMatchers("/users/**").permitAll();
-            auth.requestMatchers("/users/**").permitAll();
             auth.requestMatchers("/oauth/**").permitAll();
 
             auth.requestMatchers("/**").denyAll();
