@@ -30,9 +30,11 @@ public class UserAuthController {
     @PostMapping("/verify-smscode")
     public ResponseEntity<?> verifySMSCode(
             @RequestParam Integer SMSCode,
-            @RequestParam String clientToken
+            @RequestParam String token
     ) {
-        return ResponseEntity.ok().body(userAuthService.verifySMSCode(SMSCode, clientToken));
+        System.out.println("SMSCode = " + SMSCode);
+        System.out.println("token = " + token);
+        return userAuthService.verifySMSCode(SMSCode, token);
     }
 
 }
