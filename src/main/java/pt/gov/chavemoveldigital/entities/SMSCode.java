@@ -1,8 +1,8 @@
 package pt.gov.chavemoveldigital.entities;
 
 import jakarta.persistence.*;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Entity
@@ -11,16 +11,18 @@ public class SMSCode {
     @GeneratedValue
     private Long id;
     private Integer code;
+    private String token;
+    private LocalDateTime timestamp;
     private String telephoneNumber;
-    private String hashedPin;
 
     public SMSCode() {
     }
 
-    public SMSCode(String telephoneNumber, Integer pin) {
-        this.telephoneNumber = telephoneNumber;
+    public SMSCode(String telephoneNumber, String token) {
         this.code = generateCode();
-        this.hashedPin = hashPin(pin);
+        this.token = token;
+        this.timestamp = LocalDateTime.now();
+        this.telephoneNumber = telephoneNumber;
     }
 
     public Integer generateCode() {
@@ -28,10 +30,6 @@ public class SMSCode {
         int min = 100000;
         int max = 999999;
         return random.nextInt(max - min) + min;
-    }
-
-    private String hashPin(Integer pin) {
-        return BCrypt.hashpw(pin.toString(), BCrypt.gensalt());
     }
 
     public Long getId() {
@@ -50,6 +48,14 @@ public class SMSCode {
         this.code = code;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public String getTelephoneNumber() {
         return telephoneNumber;
     }
@@ -58,11 +64,11 @@ public class SMSCode {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public String getHashedPin() {
-        return hashedPin;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setHashedPin(String hashedPin) {
-        this.hashedPin = hashedPin;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

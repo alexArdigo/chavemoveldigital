@@ -17,13 +17,14 @@ import pt.gov.chavemoveldigital.repositories.OAuthTokenRepository;
 import pt.gov.chavemoveldigital.repositories.SMSCodeRepository;
 import pt.gov.chavemoveldigital.repositories.UserRepository;
 
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Map;
 
 @Service
 public class UserAuthServiceImpl implements UserAuthService {
 
-
-    private final int delay = 600;
+    private final int initialSMSCodeTimerInMilliseconds = 60000; // 60 seconds
 
     @Autowired
     private UserRepository userRepository;
@@ -34,16 +35,13 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private SMSCodeDeletionService SMSCodeDeletionService;
-
 
     @Autowired
     private OAuthTokenRepository oAuthTokenRepository;
 
 
     @Override
-    public Map<String, Object> authenticate(String telephoneNumber, Integer pin) {
+    public Map<String, Object> authenticate(String telephoneNumber, Integer pin, String token) {
 
         validateUser(telephoneNumber, pin);
 
@@ -52,22 +50,21 @@ public class UserAuthServiceImpl implements UserAuthService {
             SMSCodeRepository.delete(previousCode);
         }
 
-        SMSCode code = new SMSCode(telephoneNumber, pin);
+        SMSCode code = new SMSCode(telephoneNumber, token);
         SMSCodeRepository.save(code);
-        setTimeout(code);
 
         return Map.of(
                 "next", "/code-validation",
-                "params", Map.of("SMScode", code.getCode(), "delay", delay)
+                "params", Map.of("SMScode", code.getCode(), "timer", initialSMSCodeTimerInMilliseconds / 1000)
         );
     }
 
     @Override
-    public ResponseEntity<?> verifySMSCode(Integer SMSCode, String token) {
+    public ResponseEntity<?> verifySMSCode(Integer smsCode, String token) {
 
-        SMSCode existingSMSCode = SMSCodeRepository.findSMSCodeByCode(SMSCode);
+        SMSCode existingSMSCode = SMSCodeRepository.findSMSCodeByCode(smsCode);
         if (existingSMSCode == null || existingSMSCode.getId() == null) {
-            throw new NullPointerException("SMS code not found or expired");
+            throw new NullPointerException("SMS code not found");
         }
 
         User existingUser = userRepository.findUserByTelephoneNumber(existingSMSCode.getTelephoneNumber());
@@ -129,7 +126,21 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public void setTimeout(SMSCode code) {
-        SMSCodeDeletionService.deleteTempCodeAfterDelay(code.getId(), delay * 1000);
+    public int SMSCodeTimeLeft(String token) {
+
+        SMSCode existingCode = SMSCodeRepository.findSMSCodeByToken(token);
+
+        if (existingCode == null || existingCode.getId() == null) {
+            throw new NullPointerException("SMS code not found");
+        }
+
+        long currentTimeInSeconds = System.currentTimeMillis() / 1000;
+        long codeCreationTimeInSeconds = existingCode.getTimestamp().atZone(ZoneId.systemDefault()).toEpochSecond();
+
+        long elapsedTimeInSeconds = currentTimeInSeconds - codeCreationTimeInSeconds;
+
+        long timeLeftInSeconds = (initialSMSCodeTimerInMilliseconds / 1000) - elapsedTimeInSeconds;
+
+        return (int) Math.max(0, timeLeftInSeconds);
     }
 }
