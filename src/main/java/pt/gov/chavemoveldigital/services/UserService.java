@@ -1,7 +1,5 @@
 package pt.gov.chavemoveldigital.services;
 
-import jakarta.annotation.PostConstruct;
+public interface UserService {
 
-public interface UserService  {
-    
 }

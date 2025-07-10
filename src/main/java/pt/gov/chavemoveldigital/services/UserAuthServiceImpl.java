@@ -18,7 +18,6 @@ import pt.gov.chavemoveldigital.repositories.SMSCodeRepository;
 import pt.gov.chavemoveldigital.repositories.UserRepository;
 
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.Map;
 
 @Service
@@ -109,7 +108,7 @@ public class UserAuthServiceImpl implements UserAuthService {
             throw new RuntimeException("Failed to redirect to client side");
         }
 
-         oAuthTokenRepository.deleteByToken(token);
+        oAuthTokenRepository.deleteByToken(token);
         return response.getBody();
     }
 

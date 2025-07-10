@@ -28,9 +28,7 @@ public class UserAuthController {
     }
 
     @GetMapping("/sms-code-time-left")
-    public ResponseEntity<?> SMSCodeTimeLeft(
-            @RequestParam String token
-    ) {
+    public ResponseEntity<?> SMSCodeTimeLeft(@RequestParam String token) {
         return ResponseEntity.ok().body(userAuthService.SMSCodeTimeLeft(token));
     }
 
