@@ -149,6 +149,18 @@ public class OAuthVotingService {
         }
     }
 
+    private <T> T makePostParamsRequest(String url, Class<T> responseType) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.POST, null, responseType);
+            return response.getBody();
+        } catch (Exception e) {
+            System.err.println("Error in request to " + url + ": " + e.getMessage());
+            throw new RuntimeException("Error communicating with " + url, e);
+        }
+    }
+
     private <T> T makeFormRequest(String url, MultiValueMap<String, String> formData, Class<T> responseType) {
         try {
             if (restTemplate.getMessageConverters().stream().noneMatch(c -> c instanceof org.springframework.http.converter.FormHttpMessageConverter)) {
@@ -238,15 +250,10 @@ public class OAuthVotingService {
             if (currentToken == null) {
                 throw new IllegalStateException("OAuth token not set!");
             }
-            MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-            formData.add("SMSCode", smsCode.toString());
-            formData.add("token", currentToken);
             System.out.println("Sending to /users/verify-smscode: SMSCode=" + smsCode + ", token=" + currentToken);
             try {
-                Long voterId = makeFormRequest(
-                        cmdBaseUrl + "/users/verify-smscode",
-                        formData,
-                        Long.class
+                Long voterId = makePostParamsRequest(
+                        cmdBaseUrl + "/users/verify-smscode?SMSCode=" + smsCode + "&token=" + currentToken, Long.class
                 );
                 this.currentVoterId = voterId;
                 System.out.println("SMS verified, voter ID: " + voterId);
