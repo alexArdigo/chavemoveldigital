@@ -253,7 +253,7 @@ public class OAuthVotingService {
             System.out.println("Sending to /users/verify-smscode: SMSCode=" + smsCode + ", token=" + currentToken);
             try {
                 Long voterId = makePostParamsRequest(
-                        cmdBaseUrl + "/users/verify-smscode?SMSCode=" + smsCode + "&token=" + currentToken, Long.class
+                        cmdBaseUrl + "/users/verify-smscode?SMSCode=" + smsCode, Long.class
                 );
                 this.currentVoterId = voterId;
                 System.out.println("SMS verified, voter ID: " + voterId);
